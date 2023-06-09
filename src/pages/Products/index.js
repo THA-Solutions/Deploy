@@ -101,7 +101,7 @@ export default function Products() {
 
   async function addCartItem(item) {
     const addCartItem = await axios.post(
-      "https://deploy2-opsaq8ex1-guilopesfeitosa.vercel.app/api/cart/addItem",
+      "https://deploy2-theta.vercel.app/api/cart/addItem",
       {
         shoppingCart: item,
         email: session.user.email,
