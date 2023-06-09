@@ -1,0 +1,64 @@
+.main {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.form_container {
+  background-color: #733b3b75;
+  width: 30%;
+}
+
+.form_container h1 {
+  text-align: center;
+  padding: 0.5em;
+}
+
+.form_container form {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.input_box {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0.8em;
+  gap: 1em;
+}
+
+.input_box label {
+  font-size: 1.2em;
+}
+
+.input_box input {
+  padding: 0.5em;
+  border-radius: 10px;
+  border: solid 0.5px;
+  border-color: rgb(171, 166, 166);
+  background-color: #eeeeee75;
+}
+
+.cidade_estado_group,
+.numero_bairro_group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: first baseline;
+  gap: 10px;
+}
+
+.cidade_estado_group input,
+.numero_bairro_group input {
+  width: 27%;
+}
+
+/* Error */
+
+.input_error {
+  outline: 1px solid rgb(255, 72, 72);
+}
+
+.error_message {
+  color: rgb(255, 72, 72);
+  font-size: 0.75rem;
+}

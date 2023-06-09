@@ -1,0 +1,119 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3em 10em;
+}
+
+.container header {
+  font-size: 3em;
+  font-weight: 800;
+  margin-bottom: 2em;
+  color: #ec4f22;
+  width: 100vw;
+  text-align: center;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #333;
+  gap: 2em;
+}
+
+.article h3 {
+  font-size: 1.5em;
+  font-weight: 800;
+}
+
+.article p {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.banner {
+  height: 100%;
+  background-color: #ec4f22;
+  border-radius: 10px;
+}
+
+.logo {
+  width: 500px;
+  height: 100%;
+}
+
+.footerAbout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+.companyInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 0.8em;
+  color: #333;
+  gap: 10px;
+}
+
+@media (max-width: 875px) {
+  .container header {
+    font-size: 2em;
+  }
+
+  .article h3 {
+    font-size: 1.2em;
+  }
+
+  .article p {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 1175px) {
+  .logo {
+    width: 380px;
+  }
+}
+
+@media (max-width: 800px) {
+  .banner {
+    width: 100%;
+  }
+
+  .footerAbout {
+    gap: 10px;
+    flex-direction: column;
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 500px) {
+  .container header {
+    font-size: 1.5em;
+  }
+
+  .logo {
+    width: 400px;
+  }
+}
+
+@media (max-width: 405px) {
+  .logo {
+    width: 350px;
+  }
+}
+
+@media (max-width: 360px) {
+  .logo {
+    width: 300px;
+  }
+
+  .companyInfo {
+    font-size: 0.7em;
+  }
+}

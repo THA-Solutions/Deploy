@@ -1,0 +1,151 @@
+.section_padding {
+  padding: 2.5rem 2.5rem;
+}
+
+.footer {
+  background-color: #333;
+}
+
+.sb_footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer_links {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.footer_links_div {
+  display: flex;
+  flex-direction: column;
+  color: #ec4f22;
+  gap: 15px;
+}
+
+.footer_links_div h4 {
+  font-size: 25px;
+}
+
+.footer_links_div p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.atendimento {
+  color: #fff;
+}
+
+.footer_sub_link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer_sub_link:hover {
+  color: rgb(53, 135, 211);
+}
+
+.social_media {
+  display: flex;
+  gap: 12px;
+}
+
+.social_media svg {
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+.footer_below {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.footer_below_links {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer_below_links p:hover {
+  color: rgb(53, 135, 211);
+}
+
+.footer_below_links p {
+  font-size: 20px;
+  line-height: 20px;
+  color: white;
+  font-weight: 600;
+}
+
+.hr {
+  color: white !important;
+  width: 100%;
+}
+
+.footer_copyright {
+  font-size: 20px;
+  line-height: 20px;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
+
+/* Responsividade */
+
+@media screen and (max-width: 850px) {
+  .footer_heading h1 {
+    font-size: 44px;
+    line-height: 50px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .footer_heading h1 {
+    font-size: 34px;
+    line-height: 42px;
+  }
+
+  .footer_links div {
+    margin: 1.5rem 0;
+  }
+
+  .footer_btn p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .footer_below {
+    flex-direction: column;
+    justify-content: left;
+  }
+
+  .footer_below_links {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .footer_heading h1 {
+    font-size: 27px;
+    line-height: 38px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .footer_below_links p {
+    line-height: 1rem;
+  }
+
+  .footer_links_div p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

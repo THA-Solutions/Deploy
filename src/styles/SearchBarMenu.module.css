@@ -1,0 +1,8 @@
+.search_menu {
+  padding: 0.6rem 1rem;
+  font-size: 1.2em;
+  border-radius: 0.2em;
+  border: solid 1.4px;
+  border-color: grey;
+  width: 85%;
+}

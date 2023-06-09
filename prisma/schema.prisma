@@ -1,0 +1,214 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOWDATABASE_URL")
+  relationMode      = "prisma"
+}
+
+model carregamento {
+  id_produto      Int?
+  id_carregamento Int      @id @default(autoincrement())
+  conexao         String?
+  potencia        String?
+  tensao_entrada  String?
+  polos           String?
+  produto         produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model comentarios {
+  id_produto      Int?
+  id_comentario   Int       @id @default(autoincrement())
+  descricao       String?
+  data_lancamento DateTime? @default(now())
+  userName        String?   @db.VarChar(255)
+  produto         produto?  @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model imagens {
+  id_produto Int?
+  id_imagem  Int      @id @default(autoincrement())
+  imagem     Bytes?
+  produto    produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model inversor {
+  id_produto       Int?
+  id_inversor      Int      @id @default(autoincrement())
+  potencia_entrada String?
+  potencia_saida   String?
+  corrente_entrada String?
+  corrente_saida   String?
+  corrente_curto   String?
+  frequencia       Int?
+  tensao_entrada   String?
+  tensao_saida     String?
+  quantidade_mppt  Decimal?
+  produto          produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model itempedido {
+  id_itempedido  Int      @id @default(autoincrement())
+  id_produto     Int?
+  id_pedido      Int?
+  titulo_produto String?
+  quantidade     Int?
+  total          Decimal?
+  pedido         pedido?  @relation(fields: [id_pedido], references: [id_pedido], onDelete: NoAction, onUpdate: NoAction, map: "fk_pedido")
+  produto        produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction, map: "fk_novo_produto")
+}
+
+model microinversores {
+  id_produto      Int?
+  id_microinv     Int      @id @default(autoincrement())
+  tensao_mppt     String?
+  tensao_saida    String?
+  corrente_curto  String?
+  corrente_mppt   String?
+  corrente_saida  String?
+  potencia_saida  String?
+  quantidade_mppt Int?
+  frequencia      String?
+  produto         produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction, map: "fk_microinversores_produto")
+}
+
+model monitoramento {
+  id_produto       Int?
+  id_monitoramento Int      @id @default(autoincrement())
+  servidor         String?
+  alcance          Decimal?
+  tensao_operacao  String?
+  comunicacao      String?
+  consumo          String?
+  produto          produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction, map: "fk_moni_produto")
+}
+
+model painel {
+  id_produto            Int?
+  id_painel             Int      @id @default(autoincrement())
+  eficiencia            String?
+  tipo_celula           String?
+  potencia_modulo       String?
+  tensao_circuitoaberto String?
+  tensao_potencia       String?
+  tensao_sistema        String?
+  corrente_curto        String?
+  corrente_fusivel      String?
+  produto               produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction, map: "fk_painel_produto")
+}
+
+model pedido {
+  id_pedido    Int          @id @default(autoincrement())
+  id_usuario   String       @map("id_usuario")
+  valor_frete  Decimal?     @db.Decimal(10, 2)
+  total_pedido Decimal?     @db.Decimal(10, 2)
+  status       String
+  itempedido   itempedido[]
+  user         user         @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_usuario_pedido")
+}
+
+model produto {
+  id_produto      Int               @id @default(autoincrement())
+  titulo_produto  String?           @db.VarChar(255)
+  marca_produto   String?
+  categoria       String
+  modelo          String?
+  quantidade      Int
+  preco           Decimal           @db.Decimal(10, 2)
+  descricao       String?           @db.Text
+  peso            Decimal?          @db.Decimal(10, 2)
+  altura          Decimal?          @db.Decimal(10, 2)
+  largura         Decimal?          @db.Decimal(10, 2)
+  comprimento     Decimal?          @db.Decimal(10, 2)
+  divisao         String?           @db.VarChar(255)
+  carregamento    carregamento[]
+  comentarios     comentarios[]
+  imagens         imagens[]
+  inversor        inversor[]
+  itempedido      itempedido[]
+  microinversores microinversores[]
+  monitoramento   monitoramento[]
+  painel          painel[]
+}
+
+model user {
+  id            String     @id @default(uuid()) @map("id_usuario")
+  name          String?    @db.VarChar(250)
+  email         String     @unique @db.VarChar(250)
+  emailVerified DateTime?  @db.DateTime(6)
+  image         String?
+  password      String?
+  phone         BigInt?
+  createdAt     DateTime?  @default(now())
+  updatedAt     DateTime?  @updatedAt
+  sobrenome     String?    @db.VarChar(250)
+  account       account[]
+  endereco      endereco[]
+  pedido        pedido[]
+  session       session[]
+}
+
+model account {
+  id                String  @id @default(cuid())
+  type              String  @db.VarChar(250)
+  provider          String  @db.VarChar(250)
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String? @db.VarChar(250)
+  scope             String? @db.VarChar(250)
+  id_token          String? @db.Text
+  session_state     String? @db.VarChar(250)
+  providerAccountId String  @db.VarChar(250)
+  userId            String  @db.VarChar(250)
+  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_conta_usuario")
+
+  @@unique([provider, providerAccountId])
+}
+
+model session {
+  id           String   @id @default(cuid())
+  userId       String   @map("user_id")
+  sessionToken String   @unique @map("session_token") @db.VarChar(250)
+  expires      DateTime
+  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_sessao_usuario")
+}
+
+model verificationtoken {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+}
+
+model endereco {
+  id_endereco Int     @id @default(autoincrement())
+  cep         Int
+  logradouro  String?
+  numero      Int?
+  bairro      String?
+  complemento String?
+  cidade      String?
+  estado      String?
+  userId      String  @map("user_id")
+  user        user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_endereco_usuario")
+
+  @@map("endereco")
+}
+
+model bebidas {
+  id_produto Int?
+  id_bebida  BigInt @id @unique(map: "id_bebida") @default(autoincrement()) @db.UnsignedBigInt
+  volume     Float?
+  qtde_fardo Int?
+
+  @@index([id_produto], map: "fk_produto")
+}

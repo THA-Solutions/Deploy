@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600");
+
+.filter_title {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.filter_category {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5em;
+  color: #333;
+}
+
+.filter_category_name {
+  border-bottom: 1px solid grey;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-size: 18px;
+  width: 80%;
+}
+
+.filter_subcategory {
+  font-size: 18px;
+  margin-bottom: 1em;
+  margin-left: 0.5em;
+  cursor: pointer;
+  color: #ec4f22;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.link {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.filter_checkbox {
+  margin-left: 1em;
+  cursor: pointer;
+}
