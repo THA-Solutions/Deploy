@@ -7,7 +7,7 @@ export async function getServerSideProps(context) {
   const id = params.id_produto;
   try {
     const productData = await axios
-      .get(`http://fgldistribuidora.com.br/api/product/getProductByID`, {
+      .get(`https://deploy2-opsaq8ex1-guilopesfeitosa.vercel.app/api/product/getProductByID`, {
         params: {
           id: id,
         },
@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
       });
 
     const comments = await axios.get(
-      "http://fgldistribuidora.com.br/api/comments/getComments",
+      "https://deploy2-opsaq8ex1-guilopesfeitosa.vercel.app/api/comments/getComments",
       {
         params: {
           id: id,
