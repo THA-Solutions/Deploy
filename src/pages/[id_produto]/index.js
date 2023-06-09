@@ -7,7 +7,7 @@ export async function getServerSideProps(context) {
   const id = params.id_produto;
   try {
     const productData = await axios
-      .get(`https://deploy2-theta.vercel.app/api/product/getProductByID`, {
+      .get(`https://fgldistribuidora.vercel.app/api/product/getProductByID`, {
         params: {
           id: id,
         },
@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
       });
 
     const comments = await axios.get(
-      "https://deploy2-theta.vercel.app/api/comments/getComments",
+      "https://fgldistribuidora.vercel.app/api/comments/getComments",
       {
         params: {
           id: id,
