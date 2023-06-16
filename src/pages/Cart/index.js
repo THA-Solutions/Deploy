@@ -57,7 +57,7 @@ export default function Cart() {
     } catch (error) {
       console.error(error);
     }
-  }, [refreshCart]);
+  }, [refreshCart, session?.user?.email]);
 
   async function handleQuantity(event, titulo) {
     if (event === "increase") {

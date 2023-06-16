@@ -4,7 +4,7 @@ export default function addProduct(){
     const {
         register,
         handleSubmit,
-        formState: { errors },
+       // formState: { errors },
       } = useForm();
     
      const handleAdd = async (data) => {

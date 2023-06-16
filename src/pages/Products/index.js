@@ -110,7 +110,7 @@ export default function Products({ value }) {
   const [produtos, setProdutos] = useState([]);
   useEffect(() => {
     setProdutos(produtosFiltradosPelaSearchBar);
-  }, [produtosFiltradosPelaSearchBar.length, search.length]);
+  }, [produtosFiltradosPelaSearchBar.length, session]);
   useEffect(() => {
     setTimeout(() => {
       setAddCartPopUp(false);
