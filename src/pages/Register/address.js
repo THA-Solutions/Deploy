@@ -19,7 +19,7 @@ export default function RegisterAdress() {
 
   const onSubmit = async (body) => {
     try {
-      const address = await fetch("/api/user/registerAddress", {
+      const address = await fetch("https://fgldistribuidora.vercel.app/api/user/registerAddress", {
         method: "POST",
         body: JSON.stringify({
           userEmail: session.user.email,

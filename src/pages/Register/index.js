@@ -34,7 +34,7 @@ export default function Register() {
 
       setShowPopUp(true);
 
-      const response = await fetch("/api/user/register", {
+      const response = await fetch("https://fgldistribuidora.vercel.app/api/user/register", {
         method: "POST",
         body: JSON.stringify(user),
       });

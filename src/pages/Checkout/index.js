@@ -26,7 +26,7 @@ export default function Checkout() {
   useEffect(() => {
     async function getAddress() {
       const session = await getSession();
-      const address = await axios.get(`/api/user/checkAddress`, {
+      const address = await axios.get(`https://fgldistribuidora.vercel.app/api/user/checkAddress`, {
         params: { email: session.user.email },
       });
       setAddress(address.data);
@@ -36,7 +36,7 @@ export default function Checkout() {
 
     async function getCartItems() {
       const session = await getSession();
-      const produto = await axios.get(`/api/cart/getCart`, {
+      const produto = await axios.get(`https://fgldistribuidora.vercel.app/api/cart/getCart`, {
         params: { email: session.user.email },
       });
       setItemCart(produto.data.carts);

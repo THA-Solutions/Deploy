@@ -62,7 +62,7 @@ export default function Comments(comment) {
           descricao: descricao,
           id: id,
         };
-        await axios.post("/api/comments/postComment", {
+        await axios.post("https://fgldistribuidora.vercel.app/api/comments/postComment", {
           comment: comment,
         });
         const newComment = {

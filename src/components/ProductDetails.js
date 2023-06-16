@@ -25,7 +25,7 @@ export default function ProductDetails(props) {
   ];
 
   const calcularFrete = async () => {
-    const frete = await axios.get("/api/frete/calcularFrete",{params: {cep: cep}})
+    const frete = await axios.get("https://fgldistribuidora.vercel.app/api/frete/calcularFrete",{params: {cep: cep}})
     setValorFrete(frete)
   }
   
@@ -34,7 +34,7 @@ export default function ProductDetails(props) {
     const session = await getSession();
     if (session) {
       const { carts } = await axios
-        .get(`/api/cart/getCart`, {
+        .get(`https://fgldistribuidora.vercel.app/api/cart/getCart`, {
           params: { email: session.user.email },
         })
         .then((res) => {
@@ -45,7 +45,7 @@ export default function ProductDetails(props) {
 
       if (alreadyInCart) {
         const produto = await axios
-          .get(`/api/product/getProductByID`, {
+          .get(`https://fgldistribuidora.vercel.app/api/product/getProductByID`, {
             params: {
               id: id,
             },
@@ -64,7 +64,7 @@ export default function ProductDetails(props) {
         return;
       } else {
         const produto = await axios
-          .get(`/api/product/getProductByID`, {
+          .get(`https://fgldistribuidora.vercel.app/api/product/getProductByID`, {
             params: {
               id: id,
             },
@@ -87,7 +87,7 @@ export default function ProductDetails(props) {
 
   async function addCartItem(item) {
     const session = await getSession();
-    const addCartItem = await axios.post("/api/cart/addItem", {
+    const addCartItem = await axios.post("https://fgldistribuidora.vercel.app/api/cart/addItem", {
       shoppingCart: item,
       email: session.user.email,
     });

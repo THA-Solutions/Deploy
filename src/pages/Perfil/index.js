@@ -14,14 +14,14 @@ export default function Perfil() {
 
   useEffect(() => {
     async function getCartItems() {
-      await axios.get(`/api/cart/getCart`, {
+      await axios.get(`https://fgldistribuidora.vercel.appcart/getCart`, {
         params: { email: session.user.email },
       });
     }
     getCartItems();
 
     async function getAddress() {
-      const address = await axios.get(`/api/user/checkAddress`, {
+      const address = await axios.get(`https://fgldistribuidora.vercel.app/api/user/checkAddress`, {
         params: { email: session.user.email },
       });
       setAddress(address.data);

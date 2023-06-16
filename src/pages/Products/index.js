@@ -33,7 +33,7 @@ export default function Products() {
 
     async function fetchData() {
       try {
-        const response = await axios.get("/api/product/getProductList", {
+        const response = await axios.get("https://fgldistribuidora.vercel.app/api/product/getProductList", {
           params: { divisao: value },
         });
 
@@ -63,7 +63,7 @@ export default function Products() {
   const handleAddToCart = async (id) => {
     if (session) {
       const produto = await axios
-        .get(`/api/product/getProductByID`, {
+        .get(`https://fgldistribuidora.vercel.app/api/product/getProductByID`, {
           params: {
             id: id,
           },
