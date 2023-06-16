@@ -1,11 +1,11 @@
-import { UseForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import styles from "@/styles/Products.module.css";
 export default function addProduct(){
     const {
         register,
         handleSubmit,
        // formState: { errors },
-      } = UseForm();
+      } = useForm();
     
      const handleAdd = async (data) => {
      } 
