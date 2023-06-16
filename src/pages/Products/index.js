@@ -1,15 +1,17 @@
-import styles from "../styles/Products.module.css";
+import styles from "../../styles/Products.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import CarouselComponent from "./Carousel";
-import UInumber from "@/UI/UInumber";
-import Filters from "./Filters";
-import PopUp from "./PopUp";
-import { useContext, useState, useEffect } from "react";
-import { BsFillCartPlusFill } from "react-icons/bs";
 import { useSession, getSession } from "next-auth/react";
-import { SearchContext } from "../context/SearchContext";
+import { BsFillCartPlusFill } from "react-icons/bs";
+import { useContext, useState, useEffect } from "react";
+
+import CarouselComponent from "../../components/Carousel";
+import UInumber from "@/UI/UInumber";
+import Filters from "@/components/Filters";
+import PopUp from "@/components/PopUp";
+
+import { SearchContext } from "@/context/SearchContext";
 import { FilterContext } from "@/context/FilterContext";
 
 export default function Products({ value }) {
