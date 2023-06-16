@@ -1,4 +1,4 @@
-import styles from "../../styles/Products.module.css";
+import styles from "@/styles/Products.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
@@ -14,7 +14,7 @@ import PopUp from "@/components/PopUp";
 import { SearchContext } from "@/context/SearchContext";
 import { FilterContext } from "@/context/FilterContext";
 
-export default function Products({ value }) {
+export default function Products() {
   const { data: session } = useSession();
   const { dadosFiltrados } = useContext(FilterContext);
   const { search } = useContext(SearchContext);
@@ -29,11 +29,14 @@ export default function Products({ value }) {
   }
 
   useEffect(() => {
+    const value = localStorage.getItem("value");
+
     async function fetchData() {
       try {
         const response = await axios.get("/api/product/getProductList", {
           params: { divisao: value },
         });
+
         const listaProdutosTratada = response.data.map((product) => {
           return {
             id: product.id_produto,
@@ -55,7 +58,7 @@ export default function Products({ value }) {
       }
     }
     fetchData();
-  }, [value]);
+  }, []);
 
   const handleAddToCart = async (id) => {
     if (session) {
@@ -97,10 +100,13 @@ export default function Products({ value }) {
   };
 
   async function addCartItem(item) {
-    const addCartItem = await axios.post("/api/cart/addItem", {
-      shoppingCart: item,
-      email: session.user.email,
-    });
+    const addCartItem = await axios.post(
+      "https://fgldistribuidora.vercel.app/api/cart/addItem",
+      {
+        shoppingCart: item,
+        email: session.user.email,
+      }
+    );
     return addCartItem.data;
   }
 
@@ -112,7 +118,7 @@ export default function Products({ value }) {
   const [produtos, setProdutos] = useState([]);
   useEffect(() => {
     setProdutos(produtosFiltradosPelaSearchBar);
-  }, [produtosFiltradosPelaSearchBar.length, produtosFiltradosPelaSearchBar]);
+  }, [produtosFiltradosPelaSearchBar.length]);
   useEffect(() => {
     setTimeout(() => {
       setAddCartPopUp(false);
@@ -143,7 +149,9 @@ export default function Products({ value }) {
                   <Image
                     width={220}
                     height={300}
-                    src={`/${product.marca}/${subCaract(product.modelo)}.png`}
+                    src={`/${product.marca.toLowerCase()}/${subCaract(
+                      product.modelo
+                    )}.png`}
                     alt=""
                     className={styles.product_img + " " + styles.img}
                   />
@@ -154,6 +162,7 @@ export default function Products({ value }) {
                 <UInumber classNameProp={styles.price}>
                   {product.preco}
                 </UInumber>
+
                 <i
                   className={styles.add_cart}
                   onClick={() => {
