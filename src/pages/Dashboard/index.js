@@ -8,6 +8,8 @@ export default function addProduct(){
       } = useForm();
     
      const handleAdd = async (data) => {
+      console.log(data)
+      return;
      } 
     return(
     <section>
