@@ -29,7 +29,7 @@ export default function Cart() {
     try {
       async function getCartItems() {
         const produto = await axios.get(`/api/cart/getCart`, {
-          params: { email: session.user.email },
+          params: { email: session?.user?.email },
         });
         setItemCart(produto.data.carts);
         setTotal(produto.data.total);
@@ -41,7 +41,7 @@ export default function Cart() {
       async function checkAddress() {
         const [address] = await axios
           .get(`/api/user/checkAddress`, {
-            params: { email: session.user.email },
+            params: { email: session?.user?.email },
           })
           .then((res) => res.data);
 

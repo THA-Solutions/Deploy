@@ -1,20 +1,18 @@
-import styles from "@/styles/Products.module.css";
+import styles from "../styles/Products.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import { useSession, getSession } from "next-auth/react";
-import { BsFillCartPlusFill } from "react-icons/bs";
-import { useContext, useState, useEffect } from "react";
-
-import CarouselComponent from "../../components/Carousel";
+import CarouselComponent from "./Carousel";
 import UInumber from "@/UI/UInumber";
-import Filters from "@/components/Filters";
-import PopUp from "@/components/PopUp";
-
-import { SearchContext } from "@/context/SearchContext";
+import Filters from "./Filters";
+import PopUp from "./PopUp";
+import { useContext, useState, useEffect } from "react";
+import { BsFillCartPlusFill } from "react-icons/bs";
+import { useSession, getSession } from "next-auth/react";
+import { SearchContext } from "../context/SearchContext";
 import { FilterContext } from "@/context/FilterContext";
 
-export default function Products() {
+export default function Products({ value }) {
   const { data: session } = useSession();
   const { dadosFiltrados } = useContext(FilterContext);
   const { search } = useContext(SearchContext);
@@ -29,14 +27,11 @@ export default function Products() {
   }
 
   useEffect(() => {
-    const value = localStorage.getItem("value");
-
     async function fetchData() {
       try {
         const response = await axios.get("/api/product/getProductList", {
           params: { divisao: value },
         });
-
         const listaProdutosTratada = response.data.map((product) => {
           return {
             id: product.id_produto,
@@ -58,9 +53,9 @@ export default function Products() {
       }
     }
     fetchData();
-  }, []);
+  }, [value]);
 
-  const adicionarAoCarrinho = async (id) => {
+  const handleAddToCart = async (id) => {
     if (session) {
       const produto = await axios
         .get(`/api/product/getProductByID`, {
@@ -69,9 +64,8 @@ export default function Products() {
           },
         })
         .then((response) => response.data);
-      const reinserindo = shoppingCart.find((item) => item.id === id);
-      // Se o produto já estiver no carrinho, apenas aumenta a quantidade
-      if (reinserindo) {
+      const alreadyInCart = shoppingCart.find((item) => item.id === id);
+      if (alreadyInCart) {
         const newShoppingCart = shoppingCart.map((item) => {
           if (item.id === id) {
             return {
@@ -100,19 +94,14 @@ export default function Products() {
     }
   };
 
-  // Função para adicionar o item no carrinho
   async function addCartItem(item) {
-    const addCartItem = await axios.post(
-      "https://fgldistribuidora.vercel.app/api/cart/addItem",
-      {
-        shoppingCart: item,
-        email: session.user.email,
-      }
-    );
+    const addCartItem = await axios.post("/api/cart/addItem", {
+      shoppingCart: item,
+      email: session.user.email,
+    });
     return addCartItem.data;
   }
-  
-  // Função para filtrar os produtos pelo campo de busca
+
   let array =
     dadosFiltrados.length === 0 ? produtosNoBancoDeDados : dadosFiltrados;
   const produtosFiltradosPelaSearchBar = array.filter((product) =>
@@ -121,7 +110,7 @@ export default function Products() {
   const [produtos, setProdutos] = useState([]);
   useEffect(() => {
     setProdutos(produtosFiltradosPelaSearchBar);
-  }, [produtosFiltradosPelaSearchBar.length]);
+  }, [produtosFiltradosPelaSearchBar.length, search.length]);
   useEffect(() => {
     setTimeout(() => {
       setAddCartPopUp(false);
@@ -152,9 +141,7 @@ export default function Products() {
                   <Image
                     width={220}
                     height={300}
-                    src={`/${product.marca.toLowerCase()}/${subCaract(
-                      product.modelo
-                    )}.png`}
+                    src={`/${product.marca}/${subCaract(product.modelo)}.png`}
                     alt=""
                     className={styles.product_img + " " + styles.img}
                   />
@@ -165,11 +152,10 @@ export default function Products() {
                 <UInumber classNameProp={styles.price}>
                   {product.preco}
                 </UInumber>
-
                 <i
                   className={styles.add_cart}
                   onClick={() => {
-                    adicionarAoCarrinho(product.id);
+                    handleAddToCart(product.id);
                     setAddCartPopUp(true);
                     setLoginPopUp(true);
                   }}
