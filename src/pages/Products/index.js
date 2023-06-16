@@ -60,7 +60,7 @@ export default function Products() {
     fetchData();
   }, []);
 
-  const handleAddToCart = async (id) => {
+  const adicionarAoCarrinho = async (id) => {
     if (session) {
       const produto = await axios
         .get(`/api/product/getProductByID`, {
@@ -69,8 +69,9 @@ export default function Products() {
           },
         })
         .then((response) => response.data);
-      const alreadyInCart = shoppingCart.find((item) => item.id === id);
-      if (alreadyInCart) {
+      const reinserindo = shoppingCart.find((item) => item.id === id);
+      // Se o produto já estiver no carrinho, apenas aumenta a quantidade
+      if (reinserindo) {
         const newShoppingCart = shoppingCart.map((item) => {
           if (item.id === id) {
             return {
@@ -99,6 +100,7 @@ export default function Products() {
     }
   };
 
+  // Função para adicionar o item no carrinho
   async function addCartItem(item) {
     const addCartItem = await axios.post(
       "https://fgldistribuidora.vercel.app/api/cart/addItem",
@@ -109,7 +111,8 @@ export default function Products() {
     );
     return addCartItem.data;
   }
-
+  
+  // Função para filtrar os produtos pelo campo de busca
   let array =
     dadosFiltrados.length === 0 ? produtosNoBancoDeDados : dadosFiltrados;
   const produtosFiltradosPelaSearchBar = array.filter((product) =>
@@ -166,7 +169,7 @@ export default function Products() {
                 <i
                   className={styles.add_cart}
                   onClick={() => {
-                    handleAddToCart(product.id);
+                    adicionarAoCarrinho(product.id);
                     setAddCartPopUp(true);
                     setLoginPopUp(true);
                   }}

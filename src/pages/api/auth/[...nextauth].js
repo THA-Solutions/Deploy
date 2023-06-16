@@ -14,7 +14,8 @@ export default NextAuth({
       credentials: {},
       authorize: async (credentials) => {
         try {
-          const user = await fetch("/api/user/login", {
+       
+          const user = await fetch("http://localhost:3000/api/user/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
@@ -26,6 +27,7 @@ export default NextAuth({
           })
             .then((res) => res.json())
             .catch((err) => null);
+ 
           if (user) {
             return {
               id: user.id,

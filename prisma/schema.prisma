@@ -125,6 +125,7 @@ model produto {
   largura         Decimal?          @db.Decimal(10, 2)
   comprimento     Decimal?          @db.Decimal(10, 2)
   divisao         String?           @db.VarChar(255)
+  status          produto_status    @default(ATIVO)
   carregamento    carregamento[]
   comentarios     comentarios[]
   imagens         imagens[]
@@ -211,4 +212,9 @@ model bebidas {
   qtde_fardo Int?
 
   @@index([id_produto], map: "fk_produto")
+}
+
+enum produto_status {
+  ATIVO
+  INATIVO
 }

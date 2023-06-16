@@ -8,22 +8,27 @@ import { getSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function ProductDetails(props) {
-  const [selectedImage, setSelectedImage] = useState(0);
-
+  const [imgSelecionada, setimgSelecionada] = useState(0);
+  const [valorFrete, setValorFrete] = useState(0);
   const handleImageClick = (index) => {
-    setSelectedImage(index);
+    setimgSelecionada(index);
   };
 
   function subCaract(texto) {
     const caracteresEspeciais = /[!@#$%&*()+=[\]{}|\\/<>,.?:;]/g;
     return texto.replace(caracteresEspeciais, "-");
   }
-
   const images = [
     `/${props.produto.marca}/${subCaract(props.produto.modelo)}.${
       "png" || "jpg" || "jpeg" || "gif" || "svg" || "webp"
     }`,
   ];
+
+  const calcularFrete = async () => {
+    const frete = await axios.get("/api/frete/calcularFrete",{params: {cep: cep}})
+    setValorFrete(frete)
+  }
+  
 
   const handleAddToCart = async (id) => {
     const session = await getSession();
@@ -55,7 +60,6 @@ export default function ProductDetails(props) {
             total: produto.preco,
           },
         ];
-
         await addCartItem(newCartItem);
         return;
       } else {
@@ -90,6 +94,8 @@ export default function ProductDetails(props) {
     return addCartItem.data;
   }
 
+
+
   return (
     <>
       <section className={styles.section}>
@@ -98,7 +104,7 @@ export default function ProductDetails(props) {
             {images.map((image, index) => (
               <div
                 key={index}
-                className={`${selectedImage === index ? styles.selected : ""}`}
+                className={`${imgSelecionada === index ? styles.selected : ""}`}
                 onClick={() => handleImageClick(index)}
               >
                 <Image
@@ -112,7 +118,7 @@ export default function ProductDetails(props) {
           </div>
           <div className={styles.selected_image}>
             <Image
-              src={images[selectedImage]}
+              src={images[imgSelecionada]}
               alt="selected"
               width={400}
               height={500}
@@ -145,7 +151,7 @@ export default function ProductDetails(props) {
             <h2>Calcule o frete</h2>
             <form action="">
               <input type="text" placeholder="Informe seu CEP" name="search" />
-              <button type="submit">Calcular</button>
+              <button onClick={()=>{calcularFrete()}}>Calcular</button>
             </form>
           </div>
           {props.produto.quantidade > 0 ? (

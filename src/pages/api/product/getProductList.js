@@ -7,7 +7,7 @@ export default async function handlerGetProduct(req, res) {
     switch (divisao) {
       case "Solar":
         let produtos = await db.produto.findMany({
-          where: { divisao: divisao },
+          where: { divisao: divisao , status:'ATIVO'},
           select: {
             titulo_produto: true,
             categoria: true,
@@ -16,6 +16,7 @@ export default async function handlerGetProduct(req, res) {
             preco: true,
             modelo: true,
             categoria: true,
+            status: true,
             painel: {
               select: {
                 potencia_modulo: true,
@@ -82,7 +83,7 @@ export default async function handlerGetProduct(req, res) {
 
       case "Bebidas":
         const produto = await db.produto.findMany({
-          where: { divisao: divisao },
+          where: { divisao: divisao ,status:'ATIVO'},
           select: {
             titulo_produto: true,
             categoria: true,

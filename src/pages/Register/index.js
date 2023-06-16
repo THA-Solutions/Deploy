@@ -21,7 +21,7 @@ export default function Register() {
     formState: { errors },
     watch,
   } = useForm();
-
+  let salt = bcrypt.genSaltSync(10)
   const onSubmit = async (body) => {
     try {
       const user = {
@@ -29,7 +29,7 @@ export default function Register() {
         lastName: body.lastName,
         email: body.email,
         phone: body.phone,
-        password: bcrypt.hashSync(body.password, 10),
+        password: bcrypt.hashSync(body.password, salt),
       };
 
       setShowPopUp(true);

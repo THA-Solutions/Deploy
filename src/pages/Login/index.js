@@ -13,7 +13,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  
   async function handleSignIn(data) {
     try {
       const res = await signIn("credentials", {
@@ -45,7 +45,7 @@ export default function Login() {
                 id="email"
                 type="email"
                 placeholder="E-mail"
-                disabled={true}
+                disabled={false}
                 {...register("email", {
                   required: true,
                   validate: (value) => validator.isEmail(value),
@@ -70,7 +70,7 @@ export default function Login() {
                 id="password"
                 placeholder="Senha"
                 type="password"
-                disabled={true}
+                disabled={false}
                 {...register("password", { required: true })}
               />
               {errors?.password?.type === "required" && (
@@ -86,7 +86,7 @@ export default function Login() {
             </div>
 
             <div className={styles.field + " " + styles.button_field}>
-              <button type="submit" disabled={true}>
+              <button type="submit">
                 ENTRAR
               </button>
             </div>

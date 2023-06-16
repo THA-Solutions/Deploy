@@ -21,13 +21,7 @@ export async function register(body) {
           phone: Number(userData.phone),
         },
       });
-      const session = await db.session.create({
-        data: {
-          userId: createdUser.id,
-          sessionToken: uuid(),
-          expires: new Date(Date.now() + 1000 * 60 * 60 * 12),
-        },
-      });
+
       return createdUser;
     }
   } catch (error) {

@@ -98,7 +98,9 @@ export default function Comments(comment) {
           onChange={changeComment}
           disabled={enableComment}
         ></textarea>
-
+        { session === null ? <span className={styles.error_message}>
+          Faça login para comentar
+                </span> : null}
         <div className={styles.button_container}>
           <button
             type="button"

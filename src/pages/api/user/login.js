@@ -16,7 +16,6 @@ export default async function handler(req, res) {
     }else{
       return null
     }
-    
   } catch (error) {
     console.error("Erro na comiunicacao com a rota de Login",error);
     res.status(500).json(error.message);
