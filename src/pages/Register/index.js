@@ -34,7 +34,7 @@ export default function Register() {
 
       setShowPopUp(true);
 
-      const response = await fetch("fgldistribuidora.com.br/api/user/register", {
+      const response = await fetch("https://fgldistribuidora.com.br/api/user/register", {
         method: "POST",
         body: JSON.stringify(user),
       });
