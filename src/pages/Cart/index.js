@@ -28,7 +28,7 @@ export default function Cart() {
   useEffect(() => {
     try {
       async function getCartItems() {
-        const produto = await axios.get(`fgldistribuidora.com.br/api/cart/getCart`, {
+        const produto = await axios.get(`https://fgldistribuidora.com.br/api/cart/getCart`, {
           params: { email: session?.user?.email },
         });
         setItemCart(produto.data.carts);
@@ -40,7 +40,7 @@ export default function Cart() {
 
       async function checkAddress() {
         const [address] = await axios
-          .get(`fgldistribuidora.com.br/api/user/checkAddress`, {
+          .get(`https://fgldistribuidora.com.br/api/user/checkAddress`, {
             params: { email: session?.user?.email },
           })
           .then((res) => res.data);
@@ -61,7 +61,7 @@ export default function Cart() {
 
   async function handleQuantity(event, titulo) {
     if (event === "increase") {
-      const result = await axios.post(`fgldistribuidora.com.br/api/cart/handleQuantity`, {
+      const result = await axios.post(`https://fgldistribuidora.com.br/api/cart/handleQuantity`, {
         titulo_produto: titulo,
         acao: event,
         cartId: itemCart[0].id_pedido,
@@ -70,7 +70,7 @@ export default function Cart() {
       setRefreshCart(!refreshCart);
       return result;
     } else {
-      const result = await axios.post(`fgldistribuidora.com.br/api/cart/handleQuantity`, {
+      const result = await axios.post(`https://fgldistribuidora.com.br/api/cart/handleQuantity`, {
         titulo_produto: titulo,
         acao: event,
         cartId: itemCart[0].id_pedido,
@@ -82,7 +82,7 @@ export default function Cart() {
   }
 
   const handleRemoveFromCart = async (id) => {
-    const result = await axios.post(`fgldistribuidora.com.br/api/cart/deleteItem`, {
+    const result = await axios.post(`https://fgldistribuidora.com.br/api/cart/deleteItem`, {
       id: id,
     });
     setRefreshCart(!refreshCart);
@@ -90,7 +90,7 @@ export default function Cart() {
   };
 
   const handleRemoveAllItems = async () => {
-    const result = await axios.post(`fgldistribuidora.com.br/api/cart/deleteItem`, {
+    const result = await axios.post(`https://fgldistribuidora.com.br/api/cart/deleteItem`, {
       itemCart: itemCart,
       acao: "deleteAll",
     });
@@ -99,7 +99,7 @@ export default function Cart() {
   };
 
   async function calcularFrete(data) {
-    const result = await fetch("fgldistribuidora.com.br/api/cart/calculateFreight", {
+    const result = await fetch("https://fgldistribuidora.com.br/api/cart/calculateFreight", {
       method: "POST",
       body: JSON.stringify(data.cep),
     }).then((res) => res.json());
