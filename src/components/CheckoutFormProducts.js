@@ -14,7 +14,7 @@ export default function CheckoutFormProducts({
 }) {
   const router = useRouter();
   const sendEmail = async () => {
-    const result = await axios.post(`https://fgldistribuidora.vercel.app/api/email/sendEmail`, {
+    const result = await axios.post(`fgldistribuidora.com.br/api/email/sendEmail`, {
       itemCart: itemCart,
       total: total,
       session: session,
