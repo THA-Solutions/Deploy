@@ -7,7 +7,7 @@ export async function getServerSideProps(context) {
   const id = params.id_produto;
   try {
     const productData = await axios
-      .get(`fgldistribuidora.com.br/api/product/getProductByID`, {
+      .get(`https://fgldistribuidora.com.br/api/product/getProductByID`, {
         params: {
           id: id,
         },
@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
       });
 
     const comments = await axios.get(
-      "fgldistribuidora.com.br/api/comments/getComments",
+      "https://fgldistribuidora.com.br/api/comments/getComments",
       {
         params: {
           id: id,
