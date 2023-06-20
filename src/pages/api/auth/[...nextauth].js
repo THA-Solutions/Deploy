@@ -15,7 +15,7 @@ export default NextAuth({
       authorize: async (credentials) => {
         try {
        
-          const user = await fetch("https://fgldistribuidora.vercel.app/api/user/login", {
+          const user = await fetch("fgldistribuidora.com.br/api/user/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
