@@ -33,7 +33,7 @@ export default function Products() {
 
     async function fetchData() {
       try {
-        const response = await axios.get("https://fgldistribuidora.vercel.app/api/product/getProductList", {
+        const response = await axios.get("fgldistribuidora.com.br/api/product/getProductList", {
           params: { divisao: value },
         });
 
