@@ -20,7 +20,7 @@ export default function ProductDetails(props) {
   }
   const images = [
     `/${props.produto.marca}/${subCaract(props.produto.modelo)}.${
-      "png" || "jpg" || "jpeg" || "gif" || "svg" || "webp"
+      "png"
     }`,
   ];
 
