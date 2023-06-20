@@ -21,7 +21,7 @@ export default function CheckoutFormProducts({
       address: address,
     });
     router.push("/Checkout/registeredOrder");
-    await axios.post(`https://fgldistribuidora.vercel.app/api/cart/closeCart`, {
+    await axios.post(`fgldistribuidora.com.br/api/cart/closeCart`, {
       email: session.user.email,
     });
     return result;
