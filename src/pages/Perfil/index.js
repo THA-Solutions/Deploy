@@ -14,7 +14,7 @@ export default function Perfil() {
 
   useEffect(() => {
      async function getCartItems() {
-      const cartItems = await axios.get(`fgldistribuidora.com.br/api/cart/getCart`, {
+      const cartItems = await axios.get(`https://fgldistribuidora.com.br/api/cart/getCart`, {
         params: { email: session.user.email },
       });
       return cartItems
@@ -22,7 +22,7 @@ export default function Perfil() {
     getCartItems();
 
     async function getAddress() {
-      const address = await axios.get(`fgldistribuidora.com.br/api/user/checkAddress`, {
+      const address = await axios.get(`https://fgldistribuidora.com.br/api/user/checkAddress`, {
         params: { email: session?.user?.email },
       });
       setAddress(address.data);
