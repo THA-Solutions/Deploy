@@ -41,7 +41,7 @@ export default function CheckoutFormAddress({ session, address }) {
     setUpdateInfo(true);
 
     try {
-      await fetch("https://fgldistribuidora.vercel.app/api/user/updateAddress", {
+      await fetch("fgldistribuidora.com.br/api/user/updateAddress", {
         method: "POST",
         body: JSON.stringify({
           userEmail: session.user.email,
