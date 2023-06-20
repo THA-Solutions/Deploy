@@ -19,8 +19,8 @@ export default function ProductDetails(props) {
     return texto.replace(caracteresEspeciais, "-");
   }
   const images = [
-    `/${props.produto.marca}/${subCaract(props.produto.modelo)}.${
-      "png"
+     `/${props.produto.marca.toLowerCase()}/${subCaract(props.produto.modelo)}.
+      png
     }`,
   ];
 
