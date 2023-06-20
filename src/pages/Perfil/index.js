@@ -13,9 +13,9 @@ export default function Perfil() {
   const [updateInfo, setUpdateInfo] = useState(true);
 
   useEffect(() => {
-    async function getCartItems() {
-      const cartItems = await axios.get("fgldistribuidora.com.br/api/cart/getCart`, {
-        params: { email: session?.user?.email },
+     async function getCartItems() {
+      const cartItems = await axios.get(`fgldistribuidora.com.br/api/cart/getCart`, {
+        params: { email: session.user.email },
       });
       return cartItems
     }
