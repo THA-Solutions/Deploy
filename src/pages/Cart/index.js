@@ -1,7 +1,7 @@
 import styles from "../../styles/Cart.module.css";
 import axios from "axios";
 import Link from "next/link";
-
+import { BASE_URL } from "@/constants/constants";
 import UInumber from "@/UI/UInumber";
 import ItemCart from "../../components/ItemCart";
 
@@ -28,7 +28,7 @@ export default function Cart() {
   useEffect(() => {
     try {
       async function getCartItems() {
-        const produto = await axios.get(`https://fgldistribuidora.vercel.app/api/cart/getCart`, {
+        const produto = await axios.get(`${BASE_URL}/api/cart/getCart`, {
           params: { email: session?.user?.email },
         });
         setItemCart(produto.data.carts);
@@ -39,12 +39,10 @@ export default function Cart() {
       getCartItems();
 
       async function checkAddress() {
-        const [address] = await axios
-          .get(`https://fgldistribuidora.vercel.app/api/user/checkAddress`, {
+        const address = await axios.get(`/api/user/checkAddress`, {
             params: { email: session?.user?.email },
           })
           .then((res) => res.data);
-
         if (address) {
           setRoute("/Checkout");
           return;
@@ -61,7 +59,7 @@ export default function Cart() {
 
   async function handleQuantity(event, titulo) {
     if (event === "increase") {
-      const result = await axios.post(`https://fgldistribuidora.vercel.app/api/cart/handleQuantity`, {
+      const result = await axios.post(`${BASE_URL}/api/cart/handleQuantity`, {
         titulo_produto: titulo,
         acao: event,
         cartId: itemCart[0].id_pedido,
@@ -70,7 +68,7 @@ export default function Cart() {
       setRefreshCart(!refreshCart);
       return result;
     } else {
-      const result = await axios.post(`https://fgldistribuidora.vercel.app/api/cart/handleQuantity`, {
+      const result = await axios.post(`${BASE_URL}/api/cart/handleQuantity`, {
         titulo_produto: titulo,
         acao: event,
         cartId: itemCart[0].id_pedido,
@@ -82,7 +80,7 @@ export default function Cart() {
   }
 
   const handleRemoveFromCart = async (id) => {
-    const result = await axios.post(`https://fgldistribuidora.vercel.app/api/cart/deleteItem`, {
+    const result = await axios.post(`${BASE_URL}/api/cart/deleteItem`, {
       id: id,
     });
     setRefreshCart(!refreshCart);
@@ -90,7 +88,7 @@ export default function Cart() {
   };
 
   const handleRemoveAllItems = async () => {
-    const result = await axios.post(`https://fgldistribuidora.vercel.app/api/cart/deleteItem`, {
+    const result = await axios.post(`${BASE_URL}/api/cart/deleteItem`, {
       itemCart: itemCart,
       acao: "deleteAll",
     });
@@ -99,7 +97,7 @@ export default function Cart() {
   };
 
   async function calcularFrete(data) {
-    const result = await fetch("https://fgldistribuidora.vercel.app/api/cart/calculateFreight", {
+    const result = await fetch(`${BASE_URL}/api/cart/calculateFreight`, {
       method: "POST",
       body: JSON.stringify(data.cep),
     }).then((res) => res.json());

@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSession, getSession } from "next-auth/react";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { useContext, useState, useEffect } from "react";
-
+import { BASE_URL } from "@/constants/constants";
 import CarouselComponent from "../../components/Carousel";
 import UInumber from "@/UI/UInumber";
 import Filters from "@/components/Filters";
@@ -33,7 +33,8 @@ export default function Products() {
 
     async function fetchData() {
       try {
-        const response = await axios.get("https://fgldistribuidora.vercel.app/api/product/getProductList", {
+
+        const response = await axios.get(`${BASE_URL}/api/product/getProductList`, {
           params: { divisao: value },
         });
 
@@ -63,7 +64,7 @@ export default function Products() {
   const handleAddToCart = async (id) => {
     if (session) {
       const produto = await axios
-        .get(`https://fgldistribuidora.vercel.app/api/product/getProductByID`, {
+        .get(`${BASE_URL}/api/product/getProductByID`, {
           params: {
             id: id,
           },
@@ -101,7 +102,7 @@ export default function Products() {
 
   async function addCartItem(item) {
     const addCartItem = await axios.post(
-      "https://fgldistribuidora.vercel.app/api/cart/addItem",
+      `${BASE_URL}/api/cart/addItem`,
       {
         shoppingCart: item,
         email: session.user.email,
@@ -149,8 +150,7 @@ export default function Products() {
                   <Image
                     width={220}
                     height={300}
-                    src={`/${product.marca.toLowerCase()}/${subCaract(
-                      product.modelo
+                    src={`/${product.marca.toLowerCase()}/${subCaract(product.modelo
                     )}.png`}
                     alt=""
                     className={styles.product_img + " " + styles.img}

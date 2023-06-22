@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/Comments.module.css";
 import { useSession, getSession } from "next-auth/react";
-
+import { BASE_URL } from "@/constants/constants";
 export default function Comments(comment) {
   const [descricao, setComment] = useState("");
   const { data: session } = useSession();
@@ -48,7 +48,7 @@ export default function Comments(comment) {
     if (comment_cont.length === 0) {
       setCommentCont([...comment_cont, ...newDivs]);
     }
-  }, [comment, comment_cont]);
+  }, [comment]);
 
   const id = comment.id;
 
@@ -62,7 +62,7 @@ export default function Comments(comment) {
           descricao: descricao,
           id: id,
         };
-        await axios.post("https://fgldistribuidora.vercel.app/api/comments/postComment", {
+        await axios.post(`${BASE_URL}/api/comments/postComment`, {
           comment: comment,
         });
         const newComment = {

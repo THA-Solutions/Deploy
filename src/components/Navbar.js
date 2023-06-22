@@ -33,11 +33,6 @@ export default function Navbar() {
             </button>
           </Link>
           {!session ? (
-            // <Link className={styles.link} href="/Login">
-            //   <button>
-            //     LOGIN <BsFillPersonFill />
-            //   </button>
-            // </Link>
             <button onClick={() => signIn()}>
               LOGIN <BsFillPersonFill />
             </button>

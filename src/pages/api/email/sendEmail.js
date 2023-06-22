@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export default async function sendEmail(req, res) {
   try {
+    
     var transport = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -15,7 +16,6 @@ export default async function sendEmail(req, res) {
       },
     });
     const { itemCart, total, session, address } = req.body;
-
     const items = itemCart.map((item) => {
       return `
         <div 
@@ -35,7 +35,7 @@ export default async function sendEmail(req, res) {
 
         </div>`;
     });
-
+    
     const emailTemplate = `
     <div style="padding: 1em; display: block;">
       <div style="justify-content: space-between;">
@@ -66,13 +66,13 @@ export default async function sendEmail(req, res) {
         <div style="width: 50%">
           <h3 style="font-size: 20px">Endereço</h3>
           <div style="font-size: 15px">
-            <h4>CEP : ${address[0].cep}</h4>        
-            <h4>Logradouro : ${address[0].logradouro}</h4>        
-            <h4>Número : ${address[0].numero}</h4> 
-            <h4>Bairro : ${address[0].bairro}</h4> 
-            <h4>Complemento : ${address[0].complemento}</h4> 
-            <h4>Cidade : ${address[0].cidade}</h4>        
-            <h4>Estado : ${address[0].estado}</h4>        
+            <h4>CEP : ${address.cep}</h4>        
+            <h4>Logradouro : ${address.logradouro}</h4>        
+            <h4>Número : ${address.numero}</h4> 
+            <h4>Bairro : ${address.bairro}</h4> 
+            <h4>Complemento : ${address.complemento}</h4> 
+            <h4>Cidade : ${address.cidade}</h4>        
+            <h4>Estado : ${address.estado}</h4>        
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@ export default async function sendEmail(req, res) {
       subject: "Novo pedido - FGL Distribuidora",
       html: emailTemplate,
     };
-
+    
     transport.sendMail(message);
     res.json({ erro: false, mensagem: "Email enviado com sucesso" });
   } catch (error) {

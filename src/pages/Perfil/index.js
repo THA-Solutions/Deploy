@@ -3,7 +3,7 @@ import Image from "next/image";
 import axios from "axios";
 
 import perfilImagemAlternative from "../../../public/fgl_quadrado.png";
-
+import { BASE_URL } from "@/constants/constants";
 import { getSession, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -14,23 +14,24 @@ export default function Perfil() {
 
   useEffect(() => {
     async function getCartItems() {
-      await axios.get(`https://fgldistribuidora.vercel.appcart/getCart`, {
+      await axios.get(`${BASE_URL}/api/cart/getCart`, {
         params: { email: session.user.email },
       });
     }
     getCartItems();
 
     async function getAddress() {
-      const address = await axios.get(`https://fgldistribuidora.vercel.app/api/user/checkAddress`, {
+      const address = await axios.get(`${BASE_URL}/api/user/checkAddress`, {
         params: { email: session.user.email },
       });
       setAddress(address.data);
       return address;
     }
     getAddress();
-  }, [session.user.email]);
+  }, [session?.user?.email]);
 
   return (
+
     <div className={styles.container}>
       {/* Image Container */}
       <div className={styles.image_container}>
@@ -87,7 +88,7 @@ export default function Perfil() {
             <input
               className={styles.input}
               id="phone"
-              placeholder={session?.user?.phone || "Telefone"}
+              placeholder={session?.user?.phone || address.phone || "Telefone" }
               type="text"
               disabled={updateInfo}
             />

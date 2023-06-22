@@ -154,6 +154,6 @@ export default async function handlerGetProduct(req, res) {
         res.status(200).json(dataToFilter2());
     }
   } catch (error) {
-    console.error("Erro ao carregar produto", error);
+    console.error("Erro ao carregar produto (PList)", error);
   }
 }

@@ -1,27 +1,34 @@
 import axios from "axios";
 import styles from "../styles/Checkout.module.css";
-
+import { BASE_URL } from "@/constants/constants";
 import Image from "next/image";
 import UInumber from "@/UI/UInumber";
-
 import { useRouter } from "next/router";
-
+import { useState } from "react";
+import PopUp from "./PopUp";
+import { BsFillCartPlusFill } from "react-icons/bs";
 export default function CheckoutFormProducts({
   itemCart,
   total,
   session,
   address,
+  phone
 }) {
+  const [barrarPedido, setBarrarPedido] = useState(false);
+  const [finalizarPedido, setFinalizarPedido] = useState(false);
   const router = useRouter();
+  
   const sendEmail = async () => {
-    const result = await axios.post(`https://fgldistribuidora.vercel.app/api/email/sendEmail`, {
+
+    const result = await axios.post(`${BASE_URL}/api/email/sendEmail`, {
       itemCart: itemCart,
       total: total,
       session: session,
       address: address,
     });
+
     router.push("/Checkout/registeredOrder");
-    await axios.post(`https://fgldistribuidora.vercel.app/api/cart/closeCart`, {
+    await axios.post(`${BASE_URL}/api/cart/closeCart`, {
       email: session.user.email,
     });
     return result;
@@ -44,7 +51,7 @@ export default function CheckoutFormProducts({
                 height={100}
                 src={`/${item.produto.marca_produto}/${subCaract(
                   item.produto.modelo
-                )}.${"png" || "jpg" || "jpeg" || "gif" || "svg" || "webp"}`}
+                )}.png`}
                 /*{item.img}*/
                 alt=""
                 className={styles.product_img}
@@ -60,7 +67,22 @@ export default function CheckoutFormProducts({
         <p className={styles.total_products}>
           Total da compra: <UInumber>{total}</UInumber>
         </p>
-        <button className={styles.finish_button} onClick={() => sendEmail()}>
+        <button className={styles.finish_button} onClick={phone && address ?
+          (<PopUp trigger={finalizarPedido} buttonVisible={false}>
+          <h3>
+            Pedido encaminhado
+          </h3>
+        </PopUp>,
+        
+        () => sendEmail())
+          :(<PopUp
+          trigger={barrarPedido}
+          setTrigger={setBarrarPedido}
+          buttonVisible={true}
+          buttonText={"OK"}
+        >
+          <h3>Todas as informacoes devem estar preenchidas para concluir o pedido</h3>
+        </PopUp>)}>
           FINALIZAR COMPRA
         </button>
       </div>

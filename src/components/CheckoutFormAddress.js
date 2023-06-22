@@ -1,5 +1,5 @@
 import styles from "../styles/Checkout.module.css";
-
+import { BASE_URL } from "@/constants/constants";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -14,6 +14,8 @@ export default function CheckoutFormAddress({ session, address }) {
     setFocus,
     formState: { errors },
   } = useForm();
+
+  address = [address];
 
   const checkCEP = (event) => {
     const cep = event.target.value.replace(/\D/g, "");
@@ -37,11 +39,9 @@ export default function CheckoutFormAddress({ session, address }) {
   };
 
   const onSubmit = async (body) => {
-    setEditAddress(false);
-    setUpdateInfo(true);
-
     try {
-      await fetch("https://fgldistribuidora.vercel.app/api/user/updateAddress", {
+      console.log("btest");
+      const response = await fetch(`${BASE_URL}/api/user/updateAddress`, {
         method: "POST",
         body: JSON.stringify({
           userEmail: session.user.email,
@@ -54,19 +54,45 @@ export default function CheckoutFormAddress({ session, address }) {
           estado: body.estado,
         }),
       });
+      console.log(response);
+      return;
     } catch (error) {
       console.error("Erro na atualização do endereço: ", error);
     }
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (Object.keys(errors).length > 0) {
+
+      console.log("deu erro em");
+      setUpdateInfo(false);
+      setEditAddress(true);
+      return;
+    }else{
+      handleSubmit(onSubmit)();
+    }
+    
+  };
+
+  const handleEditClick = () => {
+    if (Object.keys(errors).length > 0) {
+      setUpdateInfo(false);
+      setEditAddress(true);
+    } else {
+      setUpdateInfo(!updateInfo);
+      setEditAddress(!editAddress);
+    }
+  };
+
   return (
-    <section className={styles.container + " " + styles.forms}>
-      <div className={styles.form + " " + styles.login}>
+    <section className={`${styles.container} ${styles.forms}`}>
+      <div className={`${styles.form} ${styles.login}`}>
         <div className={styles.form_content}>
           <header>Confirme seu endereço</header>
 
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.formClass}>
-            <div className={styles.field + " " + styles.input_field}>
+          <form onSubmit={handleFormSubmit} className={styles.formClass}>
+            <div className={`${styles.field} ${styles.input_field}`}>
               <input
                 className={styles.input}
                 id="cep"
@@ -76,14 +102,14 @@ export default function CheckoutFormAddress({ session, address }) {
                 onBlur={checkCEP}
                 disabled={updateInfo}
               />
-              {errors?.cep?.type === "required" && (
+              {errors?.cep?.type === "required" && !updateInfo && (
                 <span className={styles.error_message}>
                   O CEP é obrigatório.
                 </span>
               )}
               {error && <span>{error}</span>}
             </div>
-            <div className={styles.field + " " + styles.input_field}>
+            <div className={`${styles.field} ${styles.input_field}`}>
               <input
                 className={styles.input}
                 id="logradouro"
@@ -92,14 +118,14 @@ export default function CheckoutFormAddress({ session, address }) {
                 {...register("logradouro", { required: true })}
                 disabled={updateInfo}
               />
-              {errors?.logradouro?.type === "required" && (
+              {errors?.logradouro?.type === "required" && !updateInfo && (
                 <span className={styles.error_message}>
                   O logradouro é obrigatório.
                 </span>
               )}
             </div>
             <div className={styles.group_number_neighborhood}>
-              <div className={styles.field + " " + styles.input_field}>
+              <div className={`${styles.field} ${styles.input_field}`}>
                 <input
                   className={styles.input}
                   id="numero"
@@ -108,13 +134,13 @@ export default function CheckoutFormAddress({ session, address }) {
                   {...register("numero", { required: true })}
                   disabled={updateInfo}
                 />
-                {errors?.numero?.type === "required" && (
+                {errors?.numero?.type === "required" && !updateInfo && (
                   <span className={styles.error_message}>
                     O número é obrigatório.
                   </span>
                 )}
               </div>
-              <div className={styles.field + " " + styles.input_field}>
+              <div className={`${styles.field} ${styles.input_field}`}>
                 <input
                   className={styles.input}
                   id="bairro"
@@ -123,14 +149,14 @@ export default function CheckoutFormAddress({ session, address }) {
                   {...register("bairro", { required: true })}
                   disabled={updateInfo}
                 />
-                {errors?.bairro?.type === "required" && (
+                {errors?.bairro?.type === "required" && !updateInfo && (
                   <span className={styles.error_message}>
                     O bairro é obrigatório.
                   </span>
                 )}
               </div>
             </div>
-            <div className={styles.field + " " + styles.input_field}>
+            <div className={`${styles.field} ${styles.input_field}`}>
               <input
                 id="complemento"
                 placeholder={address[0]?.complemento || "Complemento"}
@@ -141,7 +167,7 @@ export default function CheckoutFormAddress({ session, address }) {
               />
             </div>
             <div className={styles.group_city_uf}>
-              <div className={styles.field + " " + styles.input_field}>
+              <div className={`${styles.field} ${styles.input_field}`}>
                 <input
                   className={styles.input}
                   id="cidade"
@@ -150,14 +176,14 @@ export default function CheckoutFormAddress({ session, address }) {
                   {...register("cidade", { required: true })}
                   disabled={updateInfo}
                 />
-                {errors?.cidade?.type === "required" && (
+                {errors?.cidade?.type === "required" && !updateInfo && (
                   <span className={styles.error_message}>
                     A cidade é obrigatória.
                   </span>
                 )}
               </div>
 
-              <div className={styles.field + " " + styles.input_field}>
+              <div className={`${styles.field} ${styles.input_field}`}>
                 <input
                   className={styles.input}
                   id="estado"
@@ -166,29 +192,17 @@ export default function CheckoutFormAddress({ session, address }) {
                   {...register("estado", { required: true })}
                   disabled={updateInfo}
                 />
-                {errors?.estado?.type === "required" && (
+                {errors?.estado?.type === "required" && !updateInfo && (
                   <span className={styles.error_message}>
                     O estado é obrigatório.
                   </span>
                 )}
               </div>
             </div>
-            <div className={styles.field + " " + styles.button_field}>
-              {editAddress ? (
-                <button type="submit" className={styles.button_submit}>
-                  SALVAR
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setUpdateInfo(false);
-                    setEditAddress(true);
-                  }}
-                >
-                  EDITAR
-                </button>
-              )}
+            <div className={`${styles.field} ${styles.button_field}`}>
+              <button className={styles.button_submit} onClick={handleEditClick}>
+                {editAddress ? "SALVAR" : "EDITAR"}
+              </button>
             </div>
           </form>
         </div>

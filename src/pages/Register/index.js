@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { setCookie } from "cookies-next";
+import { BASE_URL } from "@/constants/constants";
 
 export default function Register() {
   const [error, setError] = useState("");
@@ -34,16 +35,18 @@ export default function Register() {
 
       setShowPopUp(true);
 
-      const response = await fetch("https://fgldistribuidora.vercel.app/api/user/register", {
+      const response = await fetch(`${BASE_URL}/api/user/register`, {
         method: "POST",
         body: JSON.stringify(user),
       });
-
+      
       // const json = await response.json();
       // if (response.status !== 200) throw new Error(json);
       // setCookie("authorization", json);
 
       router.push("/Login");
+
+
     } catch (error) {
       console.error("Erro no cadastro: ", error);
       setError(error.message);

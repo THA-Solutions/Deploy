@@ -3,10 +3,11 @@ import { updateUser } from "../../../services/user.service";
 export default async function handler(req, res) {
   try {
 
-    const address = await updateUser(req.body);
-    
-    res.status(200).json(address);
+    let user = await updateUser(req.body);
+    user={...user,phone:Number(user.phone)}
+    res.status(200).json(user);
+    return user;
   } catch (error) {
-    res.status(400).json(error.message);
+    console.error("Erro no haldler updateUser",error)
   }
 }

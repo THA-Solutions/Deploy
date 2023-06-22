@@ -5,6 +5,9 @@ import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import db from "../../../lib/db";
+import { BASE_URL } from "@/constants/constants";
+import { useState } from "react";
+
 
 export default NextAuth({
   providers: [
@@ -14,8 +17,7 @@ export default NextAuth({
       credentials: {},
       authorize: async (credentials) => {
         try {
-       
-          const user = await fetch("https://fgldistribuidora.vercel.app/api/user/login", {
+          const user = await fetch(`${BASE_URL}/api/user/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
@@ -27,9 +29,11 @@ export default NextAuth({
           })
             .then((res) => res.json())
             .catch((err) => null);
- 
+
+
           if (user) {
             return {
+              ...credentials,
               id: user.id,
               name: user.name,
               lastname: user.lastname,
@@ -59,12 +63,10 @@ export default NextAuth({
 
   secret: process.env.SECRET,
 
-  jwt: {
-    secret: process.env.SECRET,
-    encryption: true,
+  session: {
+    strategy: "jwt",
   },
 
-  session: { strategy: "jwt" },
 
   adapter: PrismaAdapter(db),
 

@@ -4,11 +4,13 @@ import { v4 as uuid } from "uuid";
 export async function register(body) {
   const userData = JSON.parse(body);
   try {
+
     const user = await db.user.findUnique({
       where: {
         email: userData.email,
       },
     });
+   
     if (user) {
       throw new Error("E-mail já cadastrado!");
     } else {
@@ -76,9 +78,9 @@ export async function singInResquest(body) {
       if (validate) {
         return {
           name: user.name,
+          lastName: user.sobrenome,
           email: user.email,
           phone: user.phone,
-          lastName: user.sobrenome,
           id: user.id,
         };
       } else {
@@ -119,6 +121,8 @@ export async function updateAddress(body) {
       },
     });
 
+    if(address){
+
     const updatedAddress = await db.endereco.update({
       where: {
         id_endereco: address[0].id_endereco,
@@ -134,14 +138,31 @@ export async function updateAddress(body) {
       },
     });
     return updatedAddress;
+  }else{
+
+    const createdAddress = await db.endereco.create({
+      user_id:user.id,
+        cep: Number(addressData.cep),
+        logradouro: addressData.logradouro,
+        numero: Number(addressData.numero),
+        bairro: addressData.bairro,
+        complemento: addressData.complemento,
+        cidade: addressData.cidade,
+        estado: addressData.estado,
+      
+    });
+    return createdAddress;
+  }
+    
   } catch (error) {
     console.error("Erro na atualização do endereço", error);
   }
 }
 
+//Encontra as informacoes atuais do usuario e aplica as alteracoes
 export async function updateUser(body) {
   try {
-    const userData = JSON.parse(body);
+    const userData = body;
     const user = await db.user.findUnique({
       where: {
         email: userData.email,
@@ -165,11 +186,14 @@ export async function updateUser(body) {
 export async function checkAddress(param) {
   try {
     const user = await db.user.findFirst({ where: { email: param } });
+
     if (user) {
-      const address = await db.endereco.findMany({
+      const [address] = await db.endereco.findMany({
         where: { userId: user.id },
       });
-      return address;
+      if(address){
+        return {...address,phone:Number(user.phone)};
+      }
     } else {
       return null;
     }

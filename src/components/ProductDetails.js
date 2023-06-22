@@ -1,15 +1,20 @@
 import styles from "../styles/ProductDetails.module.css";
 import axios from "axios";
-
+import { BASE_URL } from "@/constants/constants";
 import UInumber from "@/UI/UInumber";
 import Image from "next/image";
-
-import { getSession } from "next-auth/react";
-import { useState } from "react";
+import { getSession, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import PopUp from "./PopUp";
 
 export default function ProductDetails(props) {
   const [imgSelecionada, setimgSelecionada] = useState(0);
   const [valorFrete, setValorFrete] = useState(0);
+  const [barrarPedido,setBarrarPedido]= useState(false);
+  const router = useRouter(); 
+  const { data: session } = useSession();
+
   const handleImageClick = (index) => {
     setimgSelecionada(index);
   };
@@ -19,13 +24,11 @@ export default function ProductDetails(props) {
     return texto.replace(caracteresEspeciais, "-");
   }
   const images = [
-    `/${props.produto.marca}/${subCaract(props.produto.modelo)}.${
-      "png" || "jpg" || "jpeg" || "gif" || "svg" || "webp"
-    }`,
+    `/${props.produto.marca.toLowerCase()}/${subCaract(props.produto.modelo)}.png`,
   ];
 
   const calcularFrete = async () => {
-    const frete = await axios.get("https://fgldistribuidora.vercel.app/api/frete/calcularFrete",{params: {cep: cep}})
+    const frete = await axios.get(`${BASE_URL}/api/frete/calcularFrete`,{params: {cep: cep}})
     setValorFrete(frete)
   }
   
@@ -34,18 +37,18 @@ export default function ProductDetails(props) {
     const session = await getSession();
     if (session) {
       const { carts } = await axios
-        .get(`https://fgldistribuidora.vercel.app/api/cart/getCart`, {
+        .get(`${BASE_URL}/api/cart/getCart`, {
           params: { email: session.user.email },
         })
         .then((res) => {
           return res.data;
         });
 
-      const alreadyInCart = carts.find((item) => item.id_produto === id);
+      const alreadyInCart = carts?.find((item) => item.id_produto === id);
 
       if (alreadyInCart) {
         const produto = await axios
-          .get(`https://fgldistribuidora.vercel.app/api/product/getProductByID`, {
+          .get(`${BASE_URL}/api/product/getProductByID`, {
             params: {
               id: id,
             },
@@ -64,7 +67,7 @@ export default function ProductDetails(props) {
         return;
       } else {
         const produto = await axios
-          .get(`https://fgldistribuidora.vercel.app/api/product/getProductByID`, {
+          .get(`${BASE_URL}/api/product/getProductByID`, {
             params: {
               id: id,
             },
@@ -87,13 +90,18 @@ export default function ProductDetails(props) {
 
   async function addCartItem(item) {
     const session = await getSession();
-    const addCartItem = await axios.post("https://fgldistribuidora.vercel.app/api/cart/addItem", {
+    const addCartItem = await axios.post(`${BASE_URL}/api/cart/addItem`, {
       shoppingCart: item,
       email: session.user.email,
     });
     return addCartItem.data;
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setBarrarPedido(false);
+    }, 3500);
+  }, [barrarPedido]);
 
 
   return (
@@ -160,12 +168,27 @@ export default function ProductDetails(props) {
             <h2>Estoque indisponível</h2>
           )}
           <div className={styles.checkout_buttons}>
-            <button className={styles.buy}>Comprar</button>
+            <button className={styles.buy} onClick={() => {
+                if(session){handleAddToCart(props.produto.id)
+                  setTimeout(() => {
+                    router.push("/Cart");
+                  }, 1000)
+                }
+                else{
+                  setBarrarPedido(true)
+                  return
+                };
+              }} >Comprar</button>
+              {barrarPedido ? (<PopUp
+                    trigger={barrarPedido}
+                    setTrigger={setBarrarPedido}
+                    buttonVisible={false}
+                   ><h3>Faça LOGIN para concluir a compra</h3></PopUp>): null}
             <button
               className={styles.add_cart}
               onClick={() => {
-                handleAddToCart(props.produto.id);
-              }}
+                if(session){handleAddToCart(props.produto.id)
+              }}}
             >
               Adicionar ao carrinho
             </button>

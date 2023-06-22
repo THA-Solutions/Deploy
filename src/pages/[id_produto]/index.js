@@ -1,13 +1,14 @@
 import ProductDetails from "@/components/ProductDetails";
 import Comments from "@/components/Comments";
 import axios from "axios";
-
+import { BASE_URL } from "@/constants/constants";
 export async function getServerSideProps(context) {
   const { params } = context;
   const id = params.id_produto;
   try {
+
     const productData = await axios
-      .get(`https://fgldistribuidora.vercel.app/api/product/getProductByID`, {
+      .get(`${BASE_URL}/api/product/getProductByID`, {
         params: {
           id: id,
         },
@@ -22,9 +23,9 @@ export async function getServerSideProps(context) {
           descricao: response.data.descricao,
         };
       });
-
+    
     const comments = await axios.get(
-      "https://fgldistribuidora.vercel.app/api/comments/getComments",
+      `${BASE_URL}/api/comments/getComments`,
       {
         params: {
           id: id,
