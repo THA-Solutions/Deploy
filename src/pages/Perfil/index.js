@@ -14,7 +14,7 @@ export default function Perfil() {
 
   useEffect(() => {
     async function getCartItems() {
-      await axios.get(`${BASE_URL}/api/cart/getCart`, {
+      const cartItems = await axios.get(`${BASE_URL}/api/cart/getCart`, {
         params: { email: session.user.email },
       });
       return cartItems
