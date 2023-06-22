@@ -40,7 +40,7 @@ export default function CheckoutFormAddress({ session, address }) {
 
   const onSubmit = async (body) => {
     try {
-      await fetch("https://fgldistribuidora.vercel.app/api/user/updateAddress", {
+      await fetch(`${BASE_URL}/api/user/updateAddress`, {
         method: "POST",
         body: JSON.stringify({
           userEmail: session.user.email,
@@ -53,7 +53,6 @@ export default function CheckoutFormAddress({ session, address }) {
           estado: body.estado,
         }),
       });
-      console.log(response);
       return;
     } catch (error) {
       console.error("Erro na atualização do endereço: ", error);
@@ -64,7 +63,6 @@ export default function CheckoutFormAddress({ session, address }) {
     e.preventDefault();
     if (Object.keys(errors).length > 0) {
 
-      console.log("deu erro em");
       setUpdateInfo(false);
       setEditAddress(true);
       return;
