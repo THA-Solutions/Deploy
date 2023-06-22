@@ -40,8 +40,7 @@ export default function CheckoutFormAddress({ session, address }) {
 
   const onSubmit = async (body) => {
     try {
-      console.log("btest");
-      const response = await fetch(`${BASE_URL}/api/user/updateAddress`, {
+      await fetch("https://fgldistribuidora.vercel.app/api/user/updateAddress", {
         method: "POST",
         body: JSON.stringify({
           userEmail: session.user.email,

@@ -17,11 +17,12 @@ export default function Perfil() {
       await axios.get(`${BASE_URL}/api/cart/getCart`, {
         params: { email: session.user.email },
       });
+      return cartItems
     }
     getCartItems();
 
     async function getAddress() {
-      const address = await axios.get(`${BASE_URL}/api/user/checkAddress`, {
+      const address = await axios.get(`https://fgldistribuidora.vercel.app/api/user/checkAddress`, {
         params: { email: session.user.email },
       });
       setAddress(address.data);
