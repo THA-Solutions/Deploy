@@ -33,6 +33,14 @@ export default function ProductDetails(props) {
   }
   
 
+  useEffect(() => {
+    setTimeout(() => {
+      setBarrarPedido(false);
+    }, 3000);
+  }, [barrarPedido]);
+
+
+
   const handleAddToCart = async (id) => {
     const session = await getSession();
     if (session) {
@@ -97,11 +105,7 @@ export default function ProductDetails(props) {
     return addCartItem.data;
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      setBarrarPedido(false);
-    }, 3500);
-  }, [barrarPedido]);
+
 
 
   return (

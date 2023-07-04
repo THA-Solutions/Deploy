@@ -1,6 +1,6 @@
 import db from "../lib/db";
 import bcrypt from "bcryptjs";
-import { v4 as uuid } from "uuid";
+
 export async function register(body) {
   const userData = JSON.parse(body);
   try {
@@ -12,7 +12,7 @@ export async function register(body) {
     });
    
     if (user) {
-      throw new Error("E-mail já cadastrado!");
+      return null;
     } else {
       const createdUser = await db.user.create({
         data: {

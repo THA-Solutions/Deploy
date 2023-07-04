@@ -3,14 +3,31 @@ import axios from "axios";
 import styles from "../styles/Comments.module.css";
 import { useSession, getSession } from "next-auth/react";
 import { BASE_URL } from "@/constants/constants";
+import { useRouter } from "next/router";
+
+
+
+
 export default function Comments(comment) {
   const [descricao, setComment] = useState("");
   const { data: session } = useSession();
+  const [comment_cont, setCommentCont] = useState([]);
+  const router = useRouter(); //Pega o id do produto na url
+  const [currentPage,setCurrentPage]=useState(0)//Pagina atual
+  const limit=5//Quantidade de comentarios por pagina
+  const Max_Items=5 //Quantidade de botoes de paginacao
+  const Max_Left=(Max_Items-1)/2//Quantidade de botoes de paginacao a esquerda
+  const pages = Math.ceil(comment_cont.length/limit)//Quantidade de paginas
+  const startIndex=currentPage*limit//Indice inicial
+  const currentData=comment_cont.slice(startIndex,startIndex+limit)//Dados da pagina atual
+  const first = Math.max(currentPage-Max_Left,1)
+  //Declaracao de variaveis
+
+
+
   const changeComment = (txt) => {
     setComment(txt.target.value);
-  };
-
-  const [comment_cont, setCommentCont] = useState([]);
+  };//Funcao responsavel por alterar o valor dos comentarios
 
   const createDivsFromComments = (comments) => {
     return comments.map((comentario) => {
@@ -57,6 +74,8 @@ export default function Comments(comment) {
       return;
     } else {
       try {
+
+      if(session){  
         const comment = {
           userName: session?.user.name,
           descricao: descricao,
@@ -73,6 +92,10 @@ export default function Comments(comment) {
         let newDivs = createDivsFromComments([newComment]);
         setCommentCont([...comment_cont, newDivs]);
         setComment("");
+        }else{
+          router.push("/Login");
+        }
+
       } catch (error) {
         console.error("erro ao salvar comentario", error);
       }
@@ -96,17 +119,18 @@ export default function Comments(comment) {
           rows="5"
           value={descricao}
           onChange={changeComment}
-          disabled={enableComment}
+          
         ></textarea>
         { session === null ? <span className={styles.error_message}>
           Faça login para comentar
                 </span> : null}
+        
         <div className={styles.button_container}>
           <button
             type="button"
             className={styles.button_postComment}
             onClick={handleSubmit}
-            disabled={enableComment}
+            
           >
             Publicar Comentário
           </button>
@@ -123,9 +147,23 @@ export default function Comments(comment) {
       </div>
       <hr />
       <div>
-        {comment_cont.map((comentario, index) => (
+        {currentData.map((comentario, index) => (
           <div key={index}>{comentario}</div>
         ))}
+      <div className={styles.pagination}>
+      {Array.from({ length: Math.min(Max_Items, pages) })
+        .map((_, index) => index + first)
+        .map((page) => (
+          page <= pages-1 ? (<button 
+          value={page}
+            onClick={(e) => {setCurrentPage(Number(e.target.value))}}
+          >
+            {page}
+          </button>):null
+            
+        ))}
+        </div>  
+      
       </div>
     </div>
   );

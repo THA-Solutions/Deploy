@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import PopUp from "@/components/PopUp";
 
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { setCookie } from "cookies-next";
 import { BASE_URL } from "@/constants/constants";
@@ -15,6 +15,8 @@ export default function Register() {
   const [error, setError] = useState("");
   const [showPopUp, setShowPopUp] = useState(false);
   const router = useRouter();
+  const [barrarCadastro,setBarrarCadastro]= useState(false);
+
 
   const {
     register,
@@ -23,6 +25,9 @@ export default function Register() {
     watch,
   } = useForm();
   let salt = bcrypt.genSaltSync(10)
+  
+  
+  
   const onSubmit = async (body) => {
     try {
       const user = {
@@ -33,7 +38,6 @@ export default function Register() {
         password: bcrypt.hashSync(body.password, salt),
       };
 
-      setShowPopUp(true);
 
       const response = await fetch(`${BASE_URL}/api/user/register`, {
         method: "POST",
@@ -43,8 +47,14 @@ export default function Register() {
       // const json = await response.json();
       // if (response.status !== 200) throw new Error(json);
       // setCookie("authorization", json);
-
-      router.push("/Login");
+      const res=await response.text()
+      if(res=="null"){
+        setBarrarCadastro(true)
+        return;
+      }else{
+        setShowPopUp(true);
+        router.push("/Login");
+      }
 
 
     } catch (error) {
@@ -53,8 +63,11 @@ export default function Register() {
     }
   };
 
-  //const watchPassword = watch("password");
-
+  useEffect(() => {
+    setTimeout(() => {
+      setBarrarCadastro(false);
+    }, 3500);
+  }, [barrarCadastro]);
   return (
     <section className={styles.container + " " + styles.forms}>
       <div className={styles.form + " " + styles.login}>
@@ -203,7 +216,6 @@ export default function Register() {
             <div className={styles.field + " " + styles.button_field}>
               <button type="submit">CADASTRAR</button>
             </div>
-
             <div className={styles.form_link}>
               <span>
                 Já tem uma conta?{" "}
@@ -217,9 +229,17 @@ export default function Register() {
             </div>
           </form>
         </div>
-        <PopUp trigger={showPopUp} setTrigger={setShowPopUp}>
+        {
+          barrarCadastro?(
+            <PopUp
+            trigger={barrarCadastro}
+            setTrigger={setBarrarCadastro}
+          >
+            <h3>E-mail já cadastrado!</h3>
+          </PopUp>):<PopUp trigger={showPopUp} setTrigger={setShowPopUp}>
           <h3>Cadastro realizado com sucesso!</h3>
         </PopUp>
+        }
       </div>
     </section>
   );

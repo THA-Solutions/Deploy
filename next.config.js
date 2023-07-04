@@ -10,6 +10,7 @@ module.exports = {
       "source.unsplash.com",
       "lh3.googleusercontent.com",
       "avatars.githubusercontent.com",
+      "res.cloudinary.com",
     ],
   },
 };

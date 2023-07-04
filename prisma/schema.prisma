@@ -126,6 +126,7 @@ model produto {
   comprimento     Decimal?          @db.Decimal(10, 2)
   divisao         String?           @db.VarChar(255)
   status          produto_status    @default(ATIVO)
+  img_url         String?           @db.VarChar(255)
   carregamento    carregamento[]
   comentarios     comentarios[]
   imagens         imagens[]
@@ -134,6 +135,7 @@ model produto {
   microinversores microinversores[]
   monitoramento   monitoramento[]
   painel          painel[]
+  bebidas         bebidas[]
 }
 
 model user {
@@ -147,6 +149,7 @@ model user {
   createdAt     DateTime?  @default(now())
   updatedAt     DateTime?  @updatedAt
   sobrenome     String?    @db.VarChar(250)
+  permissions   String?    @default("customer") @db.VarChar(10)
   account       account[]
   endereco      endereco[]
   pedido        pedido[]
@@ -207,9 +210,10 @@ model endereco {
 
 model bebidas {
   id_produto Int?
-  id_bebida  BigInt @id @unique(map: "id_bebida") @default(autoincrement()) @db.UnsignedBigInt
+  id_bebida  BigInt   @id @unique(map: "id_bebida") @default(autoincrement()) @db.UnsignedBigInt
   volume     Float?
   qtde_fardo Int?
+  produto    produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction, map: "fk_bebidas_produto")
 
   @@index([id_produto], map: "fk_produto")
 }

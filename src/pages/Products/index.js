@@ -23,10 +23,6 @@ export default function Products() {
   const [addCartPopUp, setAddCartPopUp] = useState(false);
   const [loginPopUp, setLoginPopUp] = useState(false);
 
-  function subCaract(texto) {
-    const caracteresEspeciais = /[!@#$%&*()+=[\]{}|\\/<>,.?:;]/g;
-    return texto.replace(caracteresEspeciais, "-");
-  }
 
   useEffect(() => {
     const value = localStorage.getItem("value");
@@ -50,9 +46,11 @@ export default function Products() {
             potencia_saida: product.potencia_saida,
             quantidade_mppt: product.quantidade_mppt,
             tensao_saida: product.tensao_saida,
+            img_url: product.img_url,
+            volume: product.volume ? product.volume : null,
+            qtde_fardo: product.qtde_fardo ? product.qtde_fardo : null,
           };
         });
-
         setProdutosNoBancoDeDados(listaProdutosTratada);
       } catch (error) {
         console.error("Erro ao carregar a pagina de produtos", error);
@@ -127,6 +125,7 @@ export default function Products() {
   }, [addCartPopUp]);
 
   return (
+
     <>
       <div className={styles.container_carousel}>
         <CarouselComponent />
@@ -150,8 +149,7 @@ export default function Products() {
                   <Image
                     width={220}
                     height={300}
-                    src={`/${product.marca.toLowerCase()}/${subCaract(product.modelo
-                    )}.png`}
+                    src={product.img_url}
                     alt=""
                     className={styles.product_img + " " + styles.img}
                   />
@@ -159,9 +157,13 @@ export default function Products() {
                   <h2 className={styles.product_title}>{product.titulo}</h2>
                 </Link>
 
+                
+          {product.qtde_fardo? (<>
                 <UInumber classNameProp={styles.price}>
+                {product.preco}
+                </UInumber> ou {(product.preco/product.qtde_fardo).toFixed(2)} Un</>): <UInumber classNameProp={styles.price}>
                   {product.preco}
-                </UInumber>
+                </UInumber>}
 
                 <i
                   className={styles.add_cart}

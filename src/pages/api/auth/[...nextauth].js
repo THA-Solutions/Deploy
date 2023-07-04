@@ -67,7 +67,6 @@ export default NextAuth({
     strategy: "jwt",
   },
 
-
   adapter: PrismaAdapter(db),
 
   pages: {

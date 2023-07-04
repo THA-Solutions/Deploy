@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
 import UInumber from "@/UI/UInumber";
-
 import logo from "../../../../public/growatt/57566-9.png";
 import Image from "next/image";
 

@@ -16,6 +16,7 @@ export default async function handlerGetProduct(req, res) {
             preco: true,
             modelo: true,
             categoria: true,
+            img_url: true,
             painel: {
               select: {
                 potencia_modulo: true,
@@ -50,6 +51,7 @@ export default async function handlerGetProduct(req, res) {
               marca: produto.marca_produto,
               preco: produto.preco,
               modelo: produto.modelo,
+              img_url: produto.img_url,
               potencia_modulo:
                 //As estruturas condicionais abaixo verificam se o produto em questao possui determinado atributo, caso nao possua, retorna null
                 produto.painel.length > 0
@@ -90,22 +92,11 @@ export default async function handlerGetProduct(req, res) {
             marca_produto: true,
             preco: true,
             modelo: true,
-            painel: {
+            img_url: true,
+            bebidas: {
               select: {
-                potencia_modulo: true,
-              },
-            },
-            inversor: {
-              select: {
-                potencia_saida: true,
-                quantidade_mppt: true,
-                tensao_saida: true,
-              },
-            },
-            microinversores: {
-              select: {
-                quantidade_mppt: true,
-                tensao_saida: true,
+                volume: true,
+                qtde_fardo : true,
               },
             },
           },
@@ -113,7 +104,6 @@ export default async function handlerGetProduct(req, res) {
             categoria: "asc",
           },
         });
-
         function dataToFilter2() {
           const data = produto.map((produto) => {
             const produtos = {
@@ -124,33 +114,17 @@ export default async function handlerGetProduct(req, res) {
               marca: produto.marca_produto,
               preco: produto.preco,
               modelo: produto.modelo,
-              potencia_modulo:
+              volume: produto.bebidas[0].volume,
+              qtde_fardo: produto.bebidas[0].qtde_fardo,
+              img_url: produto.img_url,
                 //As estruturas condicionais abaixo verificam se o produto em questao possui determinado atributo, caso nao possua, retorna null
-                produto.painel.length > 0
-                  ? produto.painel[0].potencia_modulo
-                  : null,
-              potencia_saida:
-                produto.inversor.length > 0
-                  ? produto.inversor[0].potencia_saida
-                  : null,
-              quantidade_mppt:
-                produto.inversor.length > 0
-                  ? produto.inversor[0].quantidade_mppt
-                  : produto.microinversores.length > 0
-                  ? produto.microinversores[0].quantidade_mppt
-                  : null,
-              tensao_saida:
-                produto.inversor.length > 0
-                  ? produto.inversor[0].tensao_saida
-                  : produto.microinversores.length > 0
-                  ? produto.microinversores[0].tensao_saida
-                  : null,
+                
             };
             return produtos;
           });
           return data;
         }
-
+        
         res.status(200).json(dataToFilter2());
     }
   } catch (error) {
