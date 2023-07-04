@@ -16,7 +16,7 @@ export default function Catalog(){
 
     useEffect(() => {
         if (session?.user?.permissions !== "admin") {
-            router.push("/");
+            router.push("/Products");
         }
     }, [session]);
 

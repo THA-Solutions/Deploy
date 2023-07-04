@@ -1,1 +1,1 @@
-export const BASE_URL = "https://fgldistribuidora.com.br/";
+export const BASE_URL = "http://localhost:3000";
