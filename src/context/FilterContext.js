@@ -13,14 +13,17 @@ export const FilterProvider = ({ children }) => {
     //  ...marcasSelecionadas,
     //  [event.target.value]: event.target.checked,
     //});
+
     if (event.target.checked) {
       const campoFiltrado = listaProdutos.filter((item) => {
         let value;
         if (event.target.value !== null && filterParam !== null) {
           value = event.target.value;
+
           return item[filterParam] === value;
         }
       });
+
       setDadosFiltrados([...dadosFiltrados, ...campoFiltrado]);
 
     } else {

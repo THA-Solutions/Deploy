@@ -72,7 +72,6 @@ export async function singInResquest(body) {
         email: userData.email,
       },
     });
-
     if (user) {
       const validate = bcrypt.compareSync(userData.password, user.password);
       if (validate) {
@@ -81,6 +80,7 @@ export async function singInResquest(body) {
           lastName: user.sobrenome,
           email: user.email,
           phone: user.phone,
+          permissions: user.permissions,
           id: user.id,
         };
       } else {

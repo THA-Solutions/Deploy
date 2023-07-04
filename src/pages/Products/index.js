@@ -47,10 +47,11 @@ export default function Products() {
             quantidade_mppt: product.quantidade_mppt,
             tensao_saida: product.tensao_saida,
             img_url: product.img_url,
-            volume: product.volume ? product.volume : null,
-            qtde_fardo: product.qtde_fardo ? product.qtde_fardo : null,
+            volume: product.volume ? product.volume.toString() : null,
+            qtde_fardo: product.qtde_fardo ? product.qtde_fardo.toString() : null,
           };
         });
+
         setProdutosNoBancoDeDados(listaProdutosTratada);
       } catch (error) {
         console.error("Erro ao carregar a pagina de produtos", error);
@@ -161,7 +162,7 @@ export default function Products() {
           {product.qtde_fardo? (<>
                 <UInumber classNameProp={styles.price}>
                 {product.preco}
-                </UInumber> ou {(product.preco/product.qtde_fardo).toFixed(2)} Un</>): <UInumber classNameProp={styles.price}>
+                </UInumber> {(product.preco/product.qtde_fardo).toFixed(2)}/Un</>): <UInumber classNameProp={styles.price}>
                   {product.preco}
                 </UInumber>}
 

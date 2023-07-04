@@ -40,6 +40,8 @@ export default async function getCartItems(req, res) {
           select: {
             modelo: true,
             marca_produto: true,
+            id_produto: true,
+            img_url: true,
           }
         }
       }

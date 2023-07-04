@@ -47,6 +47,7 @@ export default function Checkout() {
   }, []);
 
   return (
+
     <div className={styles.container_checkout}>
       {/* Dados usuário */}
       <CheckoutFormUser session={session} phone={address.phone} />

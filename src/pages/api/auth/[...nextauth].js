@@ -32,13 +32,15 @@ export default NextAuth({
 
 
           if (user) {
+
             return {
               ...credentials,
               id: user.id,
               name: user.name,
-              lastname: user.lastname,
+              lastName: user.lastName,
               email: user.email,
               phone: user.phone,
+              permissions: user.permissions,
             }; // Credenciais válidas e usuário autorizado
           } else {
             return null;
@@ -65,9 +67,28 @@ export default NextAuth({
 
   session: {
     strategy: "jwt",
+    jwt: true,
   },
 
   adapter: PrismaAdapter(db),
+
+
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user);
+
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user = token.user;
+
+      // delete password from session
+      delete session?.user?.password;
+      delete session?.user?.callbackUrl;
+      delete session?.user?.json;
+      return session;
+    },
+  },
 
   pages: {
     signIn: "/Login",

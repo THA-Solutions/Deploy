@@ -96,7 +96,7 @@ export default async function handlerGetProduct(req, res) {
             bebidas: {
               select: {
                 volume: true,
-                qtde_fardo : true,
+                qtde_fardo: true,
               },
             },
           },
@@ -117,14 +117,13 @@ export default async function handlerGetProduct(req, res) {
               volume: produto.bebidas[0].volume,
               qtde_fardo: produto.bebidas[0].qtde_fardo,
               img_url: produto.img_url,
-                //As estruturas condicionais abaixo verificam se o produto em questao possui determinado atributo, caso nao possua, retorna null
-                
+              //As estruturas condicionais abaixo verificam se o produto em questao possui determinado atributo, caso nao possua, retorna null
             };
             return produtos;
           });
           return data;
         }
-        
+
         res.status(200).json(dataToFilter2());
     }
   } catch (error) {

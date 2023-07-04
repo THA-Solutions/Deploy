@@ -40,6 +40,7 @@ export default function CheckoutFormProducts({
   }
 
   return (
+    console.log(itemCart, "itemCart"),
     <section className={styles.container + " " + styles.forms}>
       <div className={styles.form + " " + styles.login}>
         <div className={styles.form_content_product}>
@@ -49,9 +50,7 @@ export default function CheckoutFormProducts({
               <Image
                 width={100}
                 height={100}
-                src={`/${item.produto.marca_produto}/${subCaract(
-                  item.produto.modelo
-                )}.png`}
+                src={item.produto.img_url}
                 /*{item.img}*/
                 alt=""
                 className={styles.product_img}

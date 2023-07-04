@@ -1,7 +1,7 @@
 import styles from "../../styles/Perfil.module.css";
 import Image from "next/image";
 import axios from "axios";
-
+import Link from "next/link";
 import perfilImagemAlternative from "../../../public/fgl_quadrado.png";
 import { BASE_URL } from "@/constants/constants";
 import { getSession, signOut, useSession } from "next-auth/react";
@@ -15,7 +15,7 @@ export default function Perfil() {
   useEffect(() => {
     async function getCartItems() {
       const cartItems = await axios.get(`${BASE_URL}/api/cart/getCart`, {
-        params: { email: session.user.email },
+        params: { email: session?.user.email },
       });
       return cartItems
     }
@@ -23,7 +23,7 @@ export default function Perfil() {
 
     async function getAddress() {
       const address = await axios.get(`${BASE_URL}/api/user/checkAddress`, {
-        params: { email: session.user.email },
+        params: { email: session?.user.email },
       });
       setAddress(address.data);
       return address;
@@ -32,7 +32,6 @@ export default function Perfil() {
   }, [session?.user?.email]);
 
   return (
-
     <div className={styles.container}>
       {/* Image Container */}
       <div className={styles.image_container}>
@@ -96,6 +95,8 @@ export default function Perfil() {
           </div>
         </form>
       </div>
+
+
 
       {/* Address Container */}
       <div className={styles.address_container}>
@@ -171,6 +172,25 @@ export default function Perfil() {
           </div>
         </form>
       </div>
+
+    {/* Admin Container*/}
+          {
+        session?.user?.permissions === "admin" ? (
+          <>
+          <div className={styles.admin_container}>
+          <Link className={styles.link_menu} href="/Dashboard">
+          <button>
+                  Adicionar Produto
+          </button>
+          </Link>
+          <Link className={styles.link_menu} href="/">
+          <button>
+                  Editar Produto
+          </button>
+          </Link>
+          </div>
+          </>  ) : null
+      }
     </div>
   );
 }

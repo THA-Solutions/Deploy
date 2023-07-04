@@ -253,6 +253,7 @@ export default function Filters(props) {
         );
         break;
       case "Bebidas":
+        console.log(produtos.qtde_fardo)
         return (
           <>
             <h2 className={styles.filter_title}>FILTROS</h2>
@@ -324,6 +325,75 @@ export default function Filters(props) {
                 })
                 // O codigo acima passa o array resultande do reduce de marcas para a funcao sortValues que ordena os valores do array por ordem alfabetica ou numerica
               }
+            </div>
+            {/* Qtde por Fardo */}
+            <div className={styles.filter_category}>
+            <h4 className={styles.filter_category_name}>Unidades p/Fardo</h4>
+              {sortValues(
+                produtos.reduce((acc, item) => {
+                  if (
+                    item.qtde_fardo !== null &&
+                    !acc.includes(Number(item.qtde_fardo))
+                  ) {
+                    acc.push(Number(item.qtde_fardo));
+                  }
+                  return acc;
+                }, [])
+              ).map((qtde_fardo, index) => {
+                return (
+                  <div className={styles.link} key={index}>
+                    <input
+                      onChange={handleOnCheckbox}
+                      className={styles.filter_checkbox}
+                      type="checkbox"
+                      name="qtde_fardo"
+                      id={qtde_fardo}
+                      value={qtde_fardo}
+                    />
+                    <label
+                      className={styles.filter_subcategory}
+                      htmlFor={qtde_fardo}
+                    >
+                      {qtde_fardo}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Qtde por Fardo */}
+            <div className={styles.filter_category}>
+            <h4 className={styles.filter_category_name}>Unidades p/Fardo</h4>
+              {sortValues(
+                produtos.reduce((acc, item) => {
+                  if (
+                    item.volume !== null &&
+                    !acc.includes(Number(item.volume))
+                  ) {
+                    acc.push(Number(item.volume));
+                  }
+                  return acc;
+                }, [])
+              ).map((volume, index) => {
+                return (
+                  <div className={styles.link} key={index}>
+                    <input
+                      onChange={handleOnCheckbox}
+                      className={styles.filter_checkbox}
+                      type="checkbox"
+                      name="volume"
+                      id={volume}
+                      value={volume}
+                    />
+                    <label
+                      className={styles.filter_subcategory}
+                      htmlFor={volume}
+                    >
+                      {volume + "ml"}
+                    </label>
+                  </div>
+                );
+              })}
             </div>
           </>
         );
