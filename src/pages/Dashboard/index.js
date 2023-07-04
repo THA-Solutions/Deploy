@@ -20,7 +20,7 @@ export default function addProduct() {
     formState: { errors },
   } = useForm();
 
-
+  const { data: session } = useSession();
   const [titulo, setTitulo] = useState("");
   const [marca, setMarca] = useState("");
   const [divisao, setDivisao] = useState("Solar");
