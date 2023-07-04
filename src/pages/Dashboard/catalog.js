@@ -5,14 +5,20 @@ import axios from "axios";
 import styles from "@/styles/Checkout.module.css";
 import UInumber from "@/UI/UInumber";
 import Image from "next/image";
-
+import { useRouter } from "next/router";
 
 
 export default function Catalog(){
     const { data: session } = useSession();
     const [itemCart, setItemCart] = useState([]);
     const [divisao, setDivisao] = useState("Solar");
+    const router = useRouter();
 
+    useEffect(() => {
+        if (session?.user?.permissions !== "admin") {
+            router.push("/");
+        }
+    }, [session]);
 
     useEffect(()=>{
         async function getProducts(){
