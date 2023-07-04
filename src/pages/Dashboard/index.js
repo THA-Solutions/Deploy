@@ -6,7 +6,7 @@ import axios from "axios";
 import { BASE_URL } from "@/constants/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
+import { getSession, signOut, useSession } from "next-auth/react";
 
 export default function addProduct() {
 
