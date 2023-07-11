@@ -1,0 +1,279 @@
+.container {
+  align-items: center;
+  justify-content: center;
+}
+
+.top{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3% 1% 0.3% 1%;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.top_add{
+  margin-left: 10%;
+  width: 50%;
+  height: 100%;
+  align-self: center;
+  justify-content: flex-end;
+  display: flex;
+  padding: 10px;
+}
+
+.top_add button{
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.top_cat{
+  margin-left: 10.5%;;
+  width: 50%;
+  height: 100%;
+}
+
+.top p{
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgba(155, 154, 154, 0.845);
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 100%;
+}
+
+.image_container{
+
+}
+
+.forms{justify-content: flex-start;}
+
+.catalog{
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.categories{
+  width: 7%;
+  margin: 1.2% 0% 6% 2%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.cat_title{
+ align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  height: 10%;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+.cat_options{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap : 5%;
+}
+
+.icon_bebidas{
+  width: 60px;
+  color:rgba(155, 154, 154, 0.845);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.icon_bebidas:hover{
+  color:rgb(80, 177, 251);
+}
+
+.icon_solar{
+  width: 60px;
+  color:rgba(155, 154, 154, 0.845);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon_solar:hover{
+  color: orange;
+}
+
+.product{
+width: 90%;
+max-width: 100%;
+}
+
+.colums{
+  display: flex;
+  margin: 0.4% 0% 0.5% 5%;
+
+  height: 5%;
+  font-size: 20px;
+}
+
+
+.colum1 {
+  width: 10%;
+  height: 70%;
+  margin: 1.3% 0% 15% 0%;
+  align-items: flex-end;
+  justify-content: center;
+  display: flex;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+.colum2 {
+  width: 59.34%;
+  height: 70%;
+  margin: 1.3% 0% 15% 0%;
+  align-items: flex-end;
+  justify-content: center;
+  display: flex;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.colum3{
+  width: 13.1%;
+ height: 70%;
+  margin: 1.3% 0% 15% 0%;
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.colum4{
+  width: 17.5%;
+  height: 70%;
+  margin: 1.3% 0% 15% 0%;
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.form_content_product{
+  width: 100%;
+  display: flex;
+
+}
+
+.product_content{
+  display: flex;
+  flex-direction: row;
+  align-items: center;/*vertical*/
+  justify-content: flex-start;/*horizontal*/
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+
+  margin:1% 0% 2% 5%;
+  height: 12.5%;
+}
+
+.product_content div{
+  display: flex;
+}
+
+
+.product_title{
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product_price{
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.button{
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.button button{
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.btn_remove{
+  background-color: rgb(254, 60, 60);
+  color: white;
+}
+
+.btn_remove:hover{
+  background-color: rgb(255, 0, 0);
+}
+
+.btn_edit{
+  background-color: rgba(25, 0, 255, 0.65);
+  color: rgb(0, 0, 0);
+}
+
+.btn_edit:hover{
+  background-color: rgb(25, 0, 255);
+  color: rgb(0, 0, 0);
+}
+
+.btn_desactive{
+  background-color: rgba(201, 201, 201, 0.676);
+  color: rgb(0, 0, 0);
+}
+
+.btn_desactive:hover{
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+.navigation{
+  width: 95%;
+  display: flex;
+  gap: 1.5%;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+  margin-left: 5%;
+  margin-bottom: 7%;
+}
+
+.navigation button{
+  padding: 5px;
+  border-radius:20%;
+}
+
+
+.product_image{
+  width: 10%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product_image img{
+  width: 100%;
+  max-height: 100%;
+}

@@ -119,6 +119,7 @@ export default function Products() {
   useEffect(() => {
     setProdutos(produtosFiltradosPelaSearchBar);
   }, [produtosFiltradosPelaSearchBar.length]);
+  
   useEffect(() => {
     setTimeout(() => {
       setAddCartPopUp(false);

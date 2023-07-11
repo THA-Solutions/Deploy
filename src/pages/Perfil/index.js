@@ -31,6 +31,12 @@ export default function Perfil() {
     getAddress();
   }, [session?.user?.email]);
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <div className={styles.container}>
       {/* Image Container */}
@@ -180,14 +186,10 @@ export default function Perfil() {
           <div className={styles.admin_container}>
           <Link className={styles.link_menu} href="/Dashboard">
           <button>
-                  Adicionar Produto
+                  Dashboard de Produtos
           </button>
           </Link>
-          <Link className={styles.link_menu} href="/">
-          <button>
-                  Editar Produto
-          </button>
-          </Link>
+
           </div>
           </>  ) : null
       }

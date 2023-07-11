@@ -23,8 +23,6 @@ export default function Comments(comment) {
   const first = Math.max(currentPage-Max_Left,1)
   //Declaracao de variaveis
 
-
-
   const changeComment = (txt) => {
     setComment(txt.target.value);
   };//Funcao responsavel por alterar o valor dos comentarios
