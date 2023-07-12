@@ -1,0 +1,223 @@
+.formClass{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.general_infos{
+    margin: 5% 20% 0% 20%;
+    border-radius: 10px 10px 0px 0px;; 
+    padding: 2% 2% 5% 2%;
+    width: 60%;
+    flex-wrap: wrap;
+    background-color: rgba(203, 203, 203, 0.304);
+    display: flex;
+}
+
+.general_infos input{
+    padding: 0% 1% 0% 2%;
+}
+
+.general_infos p{
+    padding: 0% 1% 0% 0%;
+}
+
+.product_area{
+    width: 60%;
+    margin: 0% 0% 0% 0%;
+    padding: 2%;
+    background-color: rgba(203, 203, 203, 0.304);
+    border-radius: 0px 0px 10px 10px;
+}
+
+.cat_label{
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 2%;
+    background-color: rgba(203, 203, 203, 0.925);
+}
+
+.cat_label h2{
+    padding-left: 2%;
+}
+.title_brand{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0% 0% 2% 0%;
+}
+.title{
+    width: 45%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.brand{
+    display: flex;
+    width: 50%;
+}
+
+.div_cat_mod{
+    width: 100%;
+    display: flex;
+    margin: 0% 0% 2% 0%;
+}
+
+.division{
+    
+    width: 33%;
+    display: flex;
+}
+
+.division select{
+    width: 60%;
+    display: flex;
+    margin: 0% 0% 0% 5%;
+}
+
+.category{
+    
+    width: 33%;
+    display: flex;
+}
+
+.category select{
+    width: 60%;
+    display: flex;
+    margin: 0% 0% 0% 5%;
+}
+
+.model{
+    width: 33%;
+    display: flex;
+}
+
+.model input{
+    width: 60%;
+    display: flex;
+    margin: 0% 0% 0% 5%;
+}
+
+.desc{
+    width: 100%;
+    display: flex;
+    margin: 0% 0% 2% 0%;
+}
+
+.desc textarea{
+    width: 80%;
+    height: fit-content;
+    max-height: 60px;
+    display: flex;
+    margin: 0% 0% 0% 1.3%;
+    padding: 1% 0% 0% 1%;
+}
+
+.qtd_price{
+    
+    width: 100%;
+    display: flex;
+    margin: 0% 0% 2% 0%;
+    gap:8%;
+}
+
+.qtd_price div{
+    
+    width: 35%;
+    display: flex;
+}
+
+.price input ::placeholder ::before{
+    content: "R$";
+    font-size: 1.5em;
+    margin: 0% 0% 0% 1%;
+}
+
+.qtd_price input{
+    width: 58%;
+    display: flex;
+    margin: 0% 0% 0% 5%;
+}
+
+.div_img{
+    
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.img_preview{
+    width: fit-content;
+    margin: 0% 0% 0% 6%;
+    border-radius: 5%;
+    display: flex;
+    padding: 1px;
+    border: 1px solid black;
+}
+
+
+
+.details{
+    padding: 0% 0% 10% 0%;;    
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    display: flex;
+}
+
+.proportions{
+    width: 100%;
+    height: 100%;
+      flex-wrap: wrap;
+    justify-content: space-between;
+    display: flex;
+}
+
+.spec_container{
+    padding: 2% 2% 3% 3%;
+    width: 100%;
+    height: 100%;
+    gap: 20%;
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.specs{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.specs div{
+    display: flex;
+    width: 100%;
+    margin: 2% 0% 1% 0%;
+    padding: 1% ;
+    max-width: 33%;
+}
+
+.specs div input{
+    padding: 2%;
+}
+
+.add_button{
+    width: 60%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 1% 0% 5% 0%;
+}
+
+.add_button button{
+    display: flex;
+    justify-content: center;
+    padding: 1%;
+    border-radius: 10px;
+    margin: 0% 1% 0% 0%;    
+}

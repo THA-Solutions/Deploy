@@ -80,7 +80,6 @@ const tabelaDerivada = body.categoria === "Inversor On-Grid" || body.categoria =
     },
   });
 
-console.log('tchau',newProduct)
     res.status(200).json({ message: "Produto atualizado com sucesso" });
 
 } catch (error) {
