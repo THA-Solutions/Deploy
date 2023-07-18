@@ -76,16 +76,31 @@ export default function Navbar() {
                   Lista de produtos
                 </Link>
                 <SearchMenu />
+                {session?.user?.permissions === "admin" ? (
+                  <Link className={styles.link} href="/Dashboard">
+                    <button>
+                      DASHBOARD <HiClipboardDocumentList />
+                    </button>
+                  </Link>
+                ) : null}
                 <Link className={styles.button_menu} href="/Cart">
                   <button>
                     CARRINHO <BsCartFill />
                   </button>
                 </Link>
-                <Link className={styles.button_menu} href="/Login">
-                  <button>
+                {!session ? (
+                  <button onClick={() => signIn()}>
                     LOGIN <BsFillPersonFill />
                   </button>
-                </Link>
+                ) : (
+                  <>
+                    <Link className={styles.link} href="/Perfil">
+                      <button>
+                        PERFIL <BsFillPersonFill />
+                      </button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           )}

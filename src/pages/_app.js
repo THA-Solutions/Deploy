@@ -11,7 +11,14 @@ export default function App({
 }) {
   return (
     <SessionProvider session={session}>
-    
+      <Script id="" strategy="afterInteractive">
+        {`
+            window.dataLayer=window.dataLayer || [];
+            function gtag(){dataLayer.push()}
+            gtag('js',new Date())
+            gtag('config', '${process.env.MEASUREMENT_ID}')
+          `}
+      </Script>
       <SearchProvider>
         <FilterProvider>
           <MainContainer>
@@ -19,7 +26,6 @@ export default function App({
           </MainContainer>
         </FilterProvider>
       </SearchProvider>
-      
     </SessionProvider>
   );
 }

@@ -38,10 +38,7 @@ export default function addProduct() {
     //Previne o comportamento padrão do formulário
 
     const formData = new FormData();
-
     formData.append("file", file);
-
-    console.log(formData.get("file"), "formdata");
     formData.append("upload_preset", "uploads");
 
     //Identifica image,marca e modelo que serao utilizados para o armazenamento das imagens
@@ -52,8 +49,6 @@ export default function addProduct() {
         body: formData,
       }
     ).then((r) => r.json());
-
-    console.log(imagemProduto.secure_url, "url", imagemProduto);
 
     data.url = imagemProduto.secure_url;
 

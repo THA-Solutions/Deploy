@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+require("dotenv").config();
+
 const nextConfig = {
   reactStrictMode: true,
 };
@@ -12,5 +14,8 @@ module.exports = {
       "avatars.githubusercontent.com",
       "res.cloudinary.com",
     ],
+  },
+  env: {
+    MEASUREMENT_ID: process.env.MEASUREMENT_ID,
   },
 };
