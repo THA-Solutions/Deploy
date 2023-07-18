@@ -15,37 +15,51 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
-      <h1>Selecione uma categoria</h1>
-      <div className={styles.categories}>
-        <div className={styles.item}>
-          <button
-            onClick={() => {
-              setValueHandler("Bebidas");
-            }}
-          >
-            <Image
-              src={energetico}
-              alt="imagem_bebidas"
-              width={200}
-              height={230}
-            />
-            <p>Bebidas</p>
-          </button>
-        </div>
+    <>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=G-9E8GDZLZPJ`}
+      />
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-9E8GDZLZPJ');
+        `}
+      </Script>
+      <div className={styles.container}>
+        <h1>Selecione uma categoria</h1>
+        <div className={styles.categories}>
+          <div className={styles.item}>
+            <button
+              onClick={() => {
+                setValueHandler("Bebidas");
+              }}
+            >
+              <Image
+                src={energetico}
+                alt="imagem_bebidas"
+                width={200}
+                height={230}
+              />
+              <p>Bebidas</p>
+            </button>
+          </div>
 
-        <div className={styles.item}>
-          <button
-            onClick={() => {
-              setValueHandler("Solar");
-            }}
-          >
-            <Image src={solar} alt="imagem_solar" width={200} height={230} />
+          <div className={styles.item}>
+            <button
+              onClick={() => {
+                setValueHandler("Solar");
+              }}
+            >
+              <Image src={solar} alt="imagem_solar" width={200} height={230} />
 
-            <p>Solar</p>
-          </button>
+              <p>Solar</p>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
