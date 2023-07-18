@@ -39,7 +39,7 @@ export default function CheckoutFormProducts({
     return texto.replace(caracteresEspeciais, "-");
   }
 
-  return (,
+  return (
     <section className={styles.container + " " + styles.forms}>
       <div className={styles.form + " " + styles.login}>
         <div className={styles.form_content_product}>
