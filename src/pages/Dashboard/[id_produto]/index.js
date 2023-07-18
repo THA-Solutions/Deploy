@@ -331,7 +331,9 @@ export default function addProduto({ produto }) {
                 >
                   Cancelar
                 </button>
-                <button type="submit">Adicionar Produto</button>
+                <button type="submit" onClick={() => {
+                    router.push("/Dashboard");
+                  }}>Alterar Produto</button>
               </div>
             </div>
           </div>
