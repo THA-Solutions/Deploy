@@ -101,7 +101,6 @@ export default function addProduto({ produto }) {
                   id="titulo_produto"
                   type="titulo_produto"
                   placeholder="Titulo do Produto"
-                  value={getValues("titulo_produto")}
                   onChange={(e) => setValue("titulo_produto", e.target.value)}
                 />
               </div>
