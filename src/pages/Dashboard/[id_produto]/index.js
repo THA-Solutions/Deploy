@@ -48,9 +48,9 @@ export default function addProduto({ produto }) {
   //Declaracao de variaveis
 
   useEffect(() => {
-      Object.keys(produto).map((key) => {
-        setValue(key, produto[key]);
-      });
+    Object.keys(produto).map((key) => {
+      setValue(key, produto[key]);
+    });
   }, []);
   //Preenche os campos com os valores do produto(utilizando como primeiro parametro o nome do-
   // campo e como segundo o valor do campo)
@@ -65,23 +65,21 @@ export default function addProduto({ produto }) {
     string = string.replace(/corrente/g, "Corrente");
     string = string.replace(/tensao/g, "Tensão");
     string = string.replace(/conexao/g, "Conexão");
-    string = string.replace(/frequencia/g, "Frequência"); 
+    string = string.replace(/frequencia/g, "Frequência");
 
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   //Funcao que deixa a primeira letra de uma string maiuscula
 
-  const handleEdit = async (data,e) => {
-      e.preventDefault();
+  const handleEdit = async (data, e) => {
+    e.preventDefault();
 
     const attProduto = await axios.put(
       `${BASE_URL}/api/dashboard/updateProduct`,
-       data 
+      data
     );
-
   };
   //Funcao que envia os dados para o backend
-
 
   return (
     <>
@@ -331,9 +329,14 @@ export default function addProduto({ produto }) {
                 >
                   Cancelar
                 </button>
-                <button type="submit" onClick={() => {
+                <button
+                  type="submit"
+                  onClick={() => {
                     router.push("/Dashboard");
-                  }}>Alterar Produto</button>
+                  }}
+                >
+                  Alterar Produto
+                </button>
               </div>
             </div>
           </div>

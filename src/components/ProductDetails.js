@@ -11,8 +11,8 @@ import PopUp from "./PopUp";
 export default function ProductDetails(props) {
   const [imgSelecionada, setimgSelecionada] = useState(0);
   const [valorFrete, setValorFrete] = useState(0);
-  const [barrarPedido,setBarrarPedido]= useState(false);
-  const router = useRouter(); 
+  const [barrarPedido, setBarrarPedido] = useState(false);
+  const router = useRouter();
   const { data: session } = useSession();
 
   const handleImageClick = (index) => {
@@ -24,22 +24,23 @@ export default function ProductDetails(props) {
     return texto.replace(caracteresEspeciais, "-");
   }
   const images = [
-    `/${props.produto.marca.toLowerCase()}/${subCaract(props.produto.modelo)}.png`,
+    `/${props.produto.marca.toLowerCase()}/${subCaract(
+      props.produto.modelo
+    )}.png`,
   ];
 
   const calcularFrete = async () => {
-    const frete = await axios.get(`${BASE_URL}/api/frete/calcularFrete`,{params: {cep: cep}})
-    setValorFrete(frete)
-  }
-  
+    const frete = await axios.get(`${BASE_URL}/api/frete/calcularFrete`, {
+      params: { cep: cep },
+    });
+    setValorFrete(frete);
+  };
 
   useEffect(() => {
     setTimeout(() => {
       setBarrarPedido(false);
     }, 3000);
   }, [barrarPedido]);
-
-
 
   const handleAddToCart = async (id) => {
     const session = await getSession();
@@ -105,8 +106,22 @@ export default function ProductDetails(props) {
     return addCartItem.data;
   }
 
-
-
+  // Manipula o texto para quebrar as linhas
+  const manipulateText = (text) => {
+    if (text) {
+      const lines = text.split("\n");
+      const manipulatedLines = lines.map((line, index) => {
+        return (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        );
+      });
+      return manipulatedLines;
+    }
+    return null; // ou qualquer valor padrão que faça sentido para o seu caso
+  };
 
   return (
     <>
@@ -142,7 +157,7 @@ export default function ProductDetails(props) {
           <h1>DESCRIÇÃO</h1>
           <hr />
           <h4>Modelo: {props.produto.modelo}</h4>
-          <p>{props.produto.descricao}</p>
+          <p>{manipulateText(props.produto.descricao)}</p>
         </div>
 
         <div className={styles.checkout_container}>
@@ -163,7 +178,13 @@ export default function ProductDetails(props) {
             <h2>Calcule o frete</h2>
             <form action="">
               <input type="text" placeholder="Informe seu CEP" name="search" />
-              <button onClick={()=>{calcularFrete()}}>Calcular</button>
+              <button
+                onClick={() => {
+                  calcularFrete();
+                }}
+              >
+                Calcular
+              </button>
             </form>
           </div>
           {props.produto.quantidade > 0 ? (
@@ -172,27 +193,38 @@ export default function ProductDetails(props) {
             <h2>Estoque indisponível</h2>
           )}
           <div className={styles.checkout_buttons}>
-            <button className={styles.buy} onClick={() => {
-                if(session){handleAddToCart(props.produto.id)
+            <button
+              className={styles.buy}
+              onClick={() => {
+                if (session) {
+                  handleAddToCart(props.produto.id);
                   setTimeout(() => {
                     router.push("/Cart");
-                  }, 1000)
+                  }, 1000);
+                } else {
+                  setBarrarPedido(true);
+                  return;
                 }
-                else{
-                  setBarrarPedido(true)
-                  return
-                };
-              }} >Comprar</button>
-              {barrarPedido ? (<PopUp
-                    trigger={barrarPedido}
-                    setTrigger={setBarrarPedido}
-                    buttonVisible={false}
-                   ><h3>Faça LOGIN para concluir a compra</h3></PopUp>): null}
+              }}
+            >
+              Comprar
+            </button>
+            {barrarPedido ? (
+              <PopUp
+                trigger={barrarPedido}
+                setTrigger={setBarrarPedido}
+                buttonVisible={false}
+              >
+                <h3>Faça LOGIN para concluir a compra</h3>
+              </PopUp>
+            ) : null}
             <button
               className={styles.add_cart}
               onClick={() => {
-                if(session){handleAddToCart(props.produto.id)
-              }}}
+                if (session) {
+                  handleAddToCart(props.produto.id);
+                }
+              }}
             >
               Adicionar ao carrinho
             </button>
