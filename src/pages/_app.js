@@ -2,6 +2,7 @@ import MainContainer from "@/components/MainContainer";
 import { SearchProvider } from "@/context/SearchContext";
 import { SessionProvider } from "next-auth/react";
 import { FilterProvider } from "@/context/FilterContext";
+import Script from "next/script";
 
 import "@/styles/globals.css";
 
