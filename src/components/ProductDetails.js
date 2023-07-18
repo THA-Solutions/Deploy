@@ -107,11 +107,9 @@ export default function ProductDetails(props) {
     return addCartItem.data;
   }
 
-  // Manipula o texto para quebrar as linhas
   const manipulateText = (text) => {
     if (text) {
-      let lines = text.split("\n").map((line) => line.replace(/^\/n\w+/i, ""));
-
+      const lines = text.split(/\\n+/);
       const manipulatedLines = lines.map((line, index) => {
         return (
           <React.Fragment key={index}>
