@@ -110,7 +110,7 @@ export default function ProductDetails(props) {
   // Manipula o texto para quebrar as linhas
   const manipulateText = (text) => {
     if (text) {
-      let lines = text.split("\n").map((line) => line.replace(regex, ""));
+      let lines = text.split("\n").map((line) => line.replace(/^\/n\w+/i, ""));
 
       const manipulatedLines = lines.map((line, index) => {
         return (
