@@ -3,7 +3,7 @@ import styles from "../styles/Index.module.css";
 import Image from "next/image";
 import solar from "../../public/painel.jpg";
 import energetico from "../../public/energetico_logo.jpg";
-
+import Script from "next/script";
 export default function Home() {
   const router = useRouter();
 
