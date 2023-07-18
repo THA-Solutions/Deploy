@@ -99,7 +99,6 @@ export default function addProduto({ produto }) {
                   id="titulo_produto"
                   type="titulo_produto"
                   placeholder="Titulo do Produto"
-                  onChange={(e) => setValue("titulo_produto", e.target.value)}
                   {...register("titulo_produto", {
                     required: true,
                   })}
