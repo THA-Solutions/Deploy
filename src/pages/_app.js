@@ -13,18 +13,18 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <Script
-        strategy="afterInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-9E8GDZLZPJ"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-9E8GDZLZPJ`}
       />
-      <Script id="google-analytics" strategy="afterInteractive">
+      <Script id="google-analytics">
         {`
-            window.dataLayer=window.dataLayer || [];
-            function gtag(){dataLayer.push()}
-            gtag('js',new Date())
-            gtag('config', '${process.env.MEASUREMENT_ID}')
-          `}
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-9E8GDZLZPJ');
+        `}
       </Script>
-      
+
       <SearchProvider>
         <FilterProvider>
           <MainContainer>
