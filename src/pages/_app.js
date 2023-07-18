@@ -11,7 +11,11 @@ export default function App({
 }) {
   return (
     <SessionProvider session={session}>
-      <Script id="" strategy="afterInteractive">
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-9E8GDZLZPJ"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
         {`
             window.dataLayer=window.dataLayer || [];
             function gtag(){dataLayer.push()}
@@ -19,6 +23,7 @@ export default function App({
             gtag('config', '${process.env.MEASUREMENT_ID}')
           `}
       </Script>
+      
       <SearchProvider>
         <FilterProvider>
           <MainContainer>
