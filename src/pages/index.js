@@ -16,18 +16,6 @@ export default function Home() {
 
   return (
     <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=G-9E8GDZLZPJ`}
-      />
-      <Script id="google-analytics">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
- 
-          gtag('config', 'G-9E8GDZLZPJ');
-        `}
-      </Script>
       <div className={styles.container}>
         <h1>Selecione uma categoria</h1>
         <div className={styles.categories}>
