@@ -102,6 +102,9 @@ export default function addProduto({ produto }) {
                   type="titulo_produto"
                   placeholder="Titulo do Produto"
                   onChange={(e) => setValue("titulo_produto", e.target.value)}
+                  {...register("titulo_produto", {
+                    required: true,
+                  })}
                 />
               </div>
 
@@ -229,15 +232,15 @@ export default function addProduto({ produto }) {
                 <div className={styles.peso_altura}>
                   <div className={styles.peso}>
                     <label className={styles.sub_cat}>Peso </label>
-                    
-                      <input
-                        id="peso"
-                        type="peso"
-                        placeholder="Peso"
-                        {...register("peso", {
-                          required: true,
-                        })}
-                      />
+
+                    <input
+                      id="peso"
+                      type="peso"
+                      placeholder="Peso"
+                      {...register("peso", {
+                        required: true,
+                      })}
+                    />
                   </div>
 
                   <div className={styles.altura}>
