@@ -28,7 +28,7 @@ export default function Cart() {
     try {
       async function getCartItems() {
         const produto = await axios.get(
-          `${process.env.process.env.BASE_URL}/api/cart/getCart`,
+          `${process.env.BASE_URL}/api/cart/getCart`,
           {
             params: { email: session?.user?.email },
           }
