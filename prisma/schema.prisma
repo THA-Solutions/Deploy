@@ -127,6 +127,8 @@ model produto {
   divisao         String?           @db.VarChar(255)
   status          produto_status    @default(ATIVO)
   img_url         String?           @db.VarChar(255)
+  id_servico      Int
+  servico         servico           @relation(fields: [id_servico], references: [id_servico], onDelete: Cascade, onUpdate: NoAction, map: "fk_servico")
   carregamento    carregamento[]
   comentarios     comentarios[]
   imagens         imagens[]
@@ -216,6 +218,13 @@ model bebidas {
   produto    produto? @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction, map: "fk_bebidas_produto")
 
   @@index([id_produto], map: "fk_produto")
+}
+
+model servico {
+  id_servico Int       @id @default(autoincrement())
+  servico    String?   @db.VarChar(30)
+  empresa    String?   @db.VarChar(20)
+  Produto    produto[]
 }
 
 enum produto_status {

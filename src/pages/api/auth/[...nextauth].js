@@ -76,6 +76,7 @@ export default NextAuth({
   callbacks: {
     jwt: async ({ token, user }) => {
       user && (token.user = user);
+      token.user.phone = Number(token.user.phone);
 
       return token;
     },
