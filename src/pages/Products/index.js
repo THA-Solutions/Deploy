@@ -30,7 +30,7 @@ export default function Products() {
       try {
 
         const response = await axios.get(
-          `${process.env.process.env.BASE_URL}/api/product/getProductList`,
+          `${process.env.BASE_URL}/api/product/getProductList`,
           {
             params: { divisao: value },
           }
@@ -129,7 +129,6 @@ export default function Products() {
   }, [addCartPopUp]);
 
   return (
-
     <>
       <div className={styles.container_carousel}>
         <CarouselComponent />
