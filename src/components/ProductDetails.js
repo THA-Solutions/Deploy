@@ -1,6 +1,5 @@
 import styles from "../styles/ProductDetails.module.css";
 import axios from "axios";
-import { BASE_URL } from "@/constants/constants";
 import UInumber from "@/UI/UInumber";
 import Image from "next/image";
 import { getSession, useSession } from "next-auth/react";
@@ -31,9 +30,12 @@ export default function ProductDetails(props) {
   ];
 
   const calcularFrete = async () => {
-    const frete = await axios.get(`${BASE_URL}/api/frete/calcularFrete`, {
-      params: { cep: cep },
-    });
+    const frete = await axios.get(
+      `${process.env.BASE_URL}/api/frete/calcularFrete`,
+      {
+        params: { cep: cep },
+      }
+    );
     setValorFrete(frete);
   };
 
@@ -47,7 +49,7 @@ export default function ProductDetails(props) {
     const session = await getSession();
     if (session) {
       const { carts } = await axios
-        .get(`${BASE_URL}/api/cart/getCart`, {
+        .get(`${process.env.BASE_URL}/api/cart/getCart`, {
           params: { email: session.user.email },
         })
         .then((res) => {
@@ -58,7 +60,7 @@ export default function ProductDetails(props) {
 
       if (alreadyInCart) {
         const produto = await axios
-          .get(`${BASE_URL}/api/product/getProductByID`, {
+          .get(`${process.env.BASE_URL}/api/product/getProductByID`, {
             params: {
               id: id,
             },
@@ -77,7 +79,7 @@ export default function ProductDetails(props) {
         return;
       } else {
         const produto = await axios
-          .get(`${BASE_URL}/api/product/getProductByID`, {
+          .get(`${process.env.BASE_URL}/api/product/getProductByID`, {
             params: {
               id: id,
             },
@@ -100,10 +102,13 @@ export default function ProductDetails(props) {
 
   async function addCartItem(item) {
     const session = await getSession();
-    const addCartItem = await axios.post(`${BASE_URL}/api/cart/addItem`, {
-      shoppingCart: item,
-      email: session.user.email,
-    });
+    const addCartItem = await axios.post(
+      `${process.env.BASE_URL}/api/cart/addItem`,
+      {
+        shoppingCart: item,
+        email: session.user.email,
+      }
+    );
     return addCartItem.data;
   }
 

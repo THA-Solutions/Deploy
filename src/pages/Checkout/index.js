@@ -1,6 +1,5 @@
 import axios from "axios";
 import styles from "../../styles/Checkout.module.css";
-import { BASE_URL } from "@/constants/constants";
 import { getSession } from "next-auth/react";
 import { useEffect, useState, useLayoutEffect } from "react";
 
@@ -26,7 +25,7 @@ export default function Checkout() {
   useEffect(() => {
     async function getAddress() {
       const session = await getSession();
-      const address = await axios.get(`${BASE_URL}/api/user/checkAddress`, {
+      const address = await axios.get(`${process.env.BASE_URL}/api/user/checkAddress`, {
         params: { email: session.user.email },
       });
       setAddress(address.data);
@@ -36,7 +35,7 @@ export default function Checkout() {
 
     async function getCartItems() {
       const session = await getSession();
-      const produto = await axios.get(`${BASE_URL}/api/cart/getCart`, {
+      const produto = await axios.get(`${process.env.BASE_URL}/api/cart/getCart`, {
         params: { email: session.user.email },
       });
       setItemCart(produto.data.carts);

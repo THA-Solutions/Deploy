@@ -3,7 +3,7 @@ import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
 import perfilImagemAlternative from "../../../public/fgl_quadrado.png";
-import { BASE_URL } from "@/constants/constants";
+
 import { getSession, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -14,7 +14,7 @@ export default function Perfil() {
 
   useEffect(() => {
     async function getCartItems() {
-      const cartItems = await axios.get(`${BASE_URL}/api/cart/getCart`, {
+      const cartItems = await axios.get(`${process.env.BASE_URL}/api/cart/getCart`, {
         params: { email: session?.user.email },
       });
       return cartItems
@@ -22,7 +22,7 @@ export default function Perfil() {
     getCartItems();
 
     async function getAddress() {
-      const address = await axios.get(`${BASE_URL}/api/user/checkAddress`, {
+      const address = await axios.get(`${process.env.BASE_URL}/api/user/checkAddress`, {
         params: { email: session?.user.email },
       });
       setAddress(address.data);

@@ -1,5 +1,4 @@
 import styles from "../styles/Checkout.module.css";
-import { BASE_URL } from "@/constants/constants";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -40,7 +39,7 @@ export default function CheckoutFormAddress({ session, address }) {
 
   const onSubmit = async (body) => {
     try {
-      await fetch(`${BASE_URL}/api/user/updateAddress`, {
+      await fetch(`${process.env.BASE_URL}/api/user/updateAddress`, {
         method: "POST",
         body: JSON.stringify({
           userEmail: session.user.email,

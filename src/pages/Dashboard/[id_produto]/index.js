@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BASE_URL } from "@/constants/constants";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import styles from "@/styles/EditingProduct.module.css";
@@ -13,7 +12,7 @@ export async function getServerSideProps(context) {
   const id = params.id_produto;
   try {
     const productData = await axios
-      .get(`${BASE_URL}/api/product/getProductByID`, {
+      .get(`${process.env.BASE_URL}/api/product/getProductByID`, {
         params: {
           id: id,
         },
@@ -75,7 +74,7 @@ export default function addProduto({ produto }) {
     e.preventDefault();
 
     const attProduto = await axios.put(
-      `${BASE_URL}/api/dashboard/updateProduct`,
+      `${process.env.BASE_URL}/api/dashboard/updateProduct`,
       data
     );
   };

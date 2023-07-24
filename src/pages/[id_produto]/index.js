@@ -1,14 +1,13 @@
 import ProductDetails from "@/components/ProductDetails";
 import Comments from "@/components/Comments";
 import axios from "axios";
-import { BASE_URL } from "@/constants/constants";
 export async function getServerSideProps(context) {
   const { params } = context;
   const id = params.id_produto;
   try {
 
     const productData = await axios
-      .get(`${BASE_URL}/api/product/getProductByID`, {
+      .get(`${process.env.BASE_URL}/api/product/getProductByID`, {
         params: {
           id: id,
         },
@@ -25,7 +24,7 @@ export async function getServerSideProps(context) {
       });
     
     const comments = await axios.get(
-      `${BASE_URL}/api/comments/getComments`,
+      `${process.env.BASE_URL}/api/comments/getComments`,
       {
         params: {
           id: id,

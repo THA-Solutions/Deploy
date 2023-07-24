@@ -1,5 +1,5 @@
 import { getSession, signOut, useSession } from "next-auth/react";
-import { BASE_URL } from "@/constants/constants";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "@/styles/Catalog.module.css";
@@ -33,9 +33,12 @@ export default function Catalog(){
 
     useEffect(()=>{
         async function getProducts(){
-        const produtos=await axios.get(`${BASE_URL}/api/product/getProductList`, {
+        const produtos = await axios.get(
+          `${process.env.BASE_URL}/api/product/getProductList`,
+          {
             params: { divisao: divisao },
-          });
+          }
+        );
           setItemCart(produtos.data)
         }
         setCurrentPage(0)

@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { setCookie } from "cookies-next";
-import { BASE_URL } from "@/constants/constants";
 
 export default function Register() {
   const [error, setError] = useState("");
@@ -39,10 +38,13 @@ export default function Register() {
       };
 
 
-      const response = await fetch(`${BASE_URL}/api/user/register`, {
-        method: "POST",
-        body: JSON.stringify(user),
-      });
+      const response = await fetch(
+        `${process.env.BASE_URL}/api/user/register`,
+        {
+          method: "POST",
+          body: JSON.stringify(user),
+        }
+      );
       
       // const json = await response.json();
       // if (response.status !== 200) throw new Error(json);

@@ -1,6 +1,5 @@
 import axios from "axios";
 import styles from "../styles/Checkout.module.css";
-import { BASE_URL } from "@/constants/constants";
 import Image from "next/image";
 import UInumber from "@/UI/UInumber";
 import { useRouter } from "next/router";
@@ -20,15 +19,18 @@ export default function CheckoutFormProducts({
   
   const sendEmail = async () => {
 
-    const result = await axios.post(`${BASE_URL}/api/email/sendEmail`, {
-      itemCart: itemCart,
-      total: total,
-      session: session,
-      address: address,
-    });
+    const result = await axios.post(
+      `${process.env.BASE_URL}/api/email/sendEmail`,
+      {
+        itemCart: itemCart,
+        total: total,
+        session: session,
+        address: address,
+      }
+    );
 
     router.push("/Checkout/registeredOrder");
-    await axios.post(`${BASE_URL}/api/cart/closeCart`, {
+    await axios.post(`${process.env.BASE_URL}/api/cart/closeCart`, {
       email: session.user.email,
     });
     return result;

@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/constants/constants";
 import styles from "../../styles/Login.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -20,7 +19,7 @@ export default function RegisterAdress() {
 
   const onSubmit = async (body) => {
     try {
-      const address = await fetch(`${BASE_URL}/api/user/registerAddress`, {
+      const address = await fetch(`${process.env.BASE_URL}/api/user/registerAddress`, {
         method: "POST",
         body: JSON.stringify({
           userEmail: session.user.email,

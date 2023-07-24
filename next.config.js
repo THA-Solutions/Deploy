@@ -24,6 +24,6 @@ module.exports = {
     GOOGLE_ID: process.env.GOOGLE_ID,
     GITHUB_SECRET: process.env.GITHUB_SECRET,
     GITHUB_ID: process.env.GITHUB_ID,
-    
+    BASE_URL: process.env.BASE_URL,
   },
 };

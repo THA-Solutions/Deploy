@@ -5,7 +5,6 @@ import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import db from "../../../lib/db";
-import { BASE_URL } from "@/constants/constants";
 import { useState } from "react";
 
 
@@ -17,7 +16,7 @@ export default NextAuth({
       credentials: {},
       authorize: async (credentials) => {
         try {
-          const user = await fetch(`${BASE_URL}/api/user/login`, {
+          const user = await fetch(`${process.env.BASE_URL}/api/user/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",

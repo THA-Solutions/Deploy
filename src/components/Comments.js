@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/Comments.module.css";
 import { useSession, getSession } from "next-auth/react";
-import { BASE_URL } from "@/constants/constants";
 import { useRouter } from "next/router";
 
 
@@ -79,7 +78,7 @@ export default function Comments(comment) {
           descricao: descricao,
           id: id,
         };
-        await axios.post(`${BASE_URL}/api/comments/postComment`, {
+        await axios.post(`${process.env.BASE_URL}/api/comments/postComment`, {
           comment: comment,
         });
         const newComment = {

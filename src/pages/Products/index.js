@@ -5,7 +5,6 @@ import axios from "axios";
 import { useSession, getSession } from "next-auth/react";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { useContext, useState, useEffect } from "react";
-import { BASE_URL } from "@/constants/constants";
 import CarouselComponent from "../../components/Carousel";
 import UInumber from "@/UI/UInumber";
 import Filters from "@/components/Filters";
@@ -30,9 +29,12 @@ export default function Products() {
     async function fetchData() {
       try {
 
-        const response = await axios.get(`${BASE_URL}/api/product/getProductList`, {
-          params: { divisao: value },
-        });
+        const response = await axios.get(
+          `${process.env.process.env.BASE_URL}/api/product/getProductList`,
+          {
+            params: { divisao: value },
+          }
+        );
 
         const listaProdutosTratada = response.data.map((product) => {
           return {
@@ -63,7 +65,7 @@ export default function Products() {
   const handleAddToCart = async (id) => {
     if (session) {
       const produto = await axios
-        .get(`${BASE_URL}/api/product/getProductByID`, {
+        .get(`${process.env.BASE_URL}/api/product/getProductByID`, {
           params: {
             id: id,
           },
@@ -101,7 +103,7 @@ export default function Products() {
 
   async function addCartItem(item) {
     const addCartItem = await axios.post(
-      `${BASE_URL}/api/cart/addItem`,
+      `${process.env.BASE_URL}/api/cart/addItem`,
       {
         shoppingCart: item,
         email: session.user.email,

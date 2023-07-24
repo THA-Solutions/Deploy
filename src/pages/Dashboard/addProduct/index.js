@@ -2,7 +2,6 @@ import { set, useForm } from "react-hook-form";
 import styles from "@/styles/AddProduct.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "@/constants/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { getSession, signOut, useSession } from "next-auth/react";
@@ -53,7 +52,7 @@ export default function addProduct() {
     data.url = imagemProduto.secure_url;
 
     const produto = await axios.post(
-      `${BASE_URL}/api/dashboard/createProduct`,
+      `${process.env.BASE_URL}/api/dashboard/createProduct`,
       data
     );
     //Adiciona o produto no banco de dados
