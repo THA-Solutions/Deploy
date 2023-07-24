@@ -6,12 +6,12 @@ export default async function handler(req, res) {
     if(user){
       const userData = {
         id: user.id,
-        name: user.name,
+        firstName: user.firstName,
         email: user.email,
         lastName: user.lastName,
         permissions: user.permissions,
         phone: Number(user.phone),
-      }
+      };
       res.status(200).json(userData);
       return userData
     }else{

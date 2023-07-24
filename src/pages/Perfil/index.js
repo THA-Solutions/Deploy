@@ -66,7 +66,7 @@ export default function Perfil() {
               <input
                 className={styles.input}
                 id="firstName"
-                placeholder={session?.user?.name}
+                placeholder={session?.user?.firstName}
                 type="text"
                 disabled={updateInfo}
               />
@@ -179,20 +179,6 @@ export default function Perfil() {
         </form>
       </div>
 
-    {/* Admin Container*/}
-          {
-        session?.user?.permissions === "admin" ? (
-          <>
-          <div className={styles.admin_container}>
-          <Link className={styles.link_menu} href="/Dashboard">
-          <button>
-                  Dashboard de Produtos
-          </button>
-          </Link>
-
-          </div>
-          </>  ) : null
-      }
     </div>
   );
 }

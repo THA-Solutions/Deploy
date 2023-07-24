@@ -29,13 +29,11 @@ export default NextAuth({
             .then((res) => res.json())
             .catch((err) => null);
 
-
           if (user) {
-
             return {
               ...credentials,
               id: user.id,
-              name: user.name,
+              firstName: user.firstName,
               lastName: user.lastName,
               email: user.email,
               phone: user.phone,
@@ -59,6 +57,15 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
+      profile(profile) {
+        return {
+          id: profile.sub,
+          email: profile.email,
+          image: profile.picture,
+          firstName: profile.given_name,
+          lastName: profile.family_name
+        };
+      },
     }),
   ],
 
@@ -71,7 +78,6 @@ export default NextAuth({
 
   adapter: PrismaAdapter(db),
 
-
   callbacks: {
     jwt: async ({ token, user }) => {
       user && (token.user = user);
@@ -80,6 +86,7 @@ export default NextAuth({
       return token;
     },
     session: async ({ session, token }) => {
+
       session.user = token.user;
 
       // delete password from session

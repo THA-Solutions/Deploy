@@ -142,7 +142,7 @@ model produto {
 
 model user {
   id            String     @id @default(uuid()) @map("id_usuario")
-  name          String?    @db.VarChar(250)
+  firstName     String?    @db.VarChar(250)
   email         String     @unique @db.VarChar(250)
   emailVerified DateTime?  @db.DateTime(6)
   image         String?
@@ -150,7 +150,7 @@ model user {
   phone         BigInt?
   createdAt     DateTime?  @default(now())
   updatedAt     DateTime?  @updatedAt
-  sobrenome     String?    @db.VarChar(250)
+  lastName      String?    @db.VarChar(250)
   permissions   String?    @default("customer") @db.VarChar(10)
   account       account[]
   endereco      endereco[]

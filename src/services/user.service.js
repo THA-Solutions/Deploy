@@ -16,8 +16,8 @@ export async function register(body) {
     } else {
       const createdUser = await db.user.create({
         data: {
-          name: userData.firstName,
-          sobrenome: userData.lastName,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
           email: userData.email,
           password: userData.password,
           phone: Number(userData.phone),
@@ -76,8 +76,8 @@ export async function singInResquest(body) {
       const validate = bcrypt.compareSync(userData.password, user.password);
       if (validate) {
         return {
-          name: user.name,
-          lastName: user.sobrenome,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
           phone: user.phone,
           permissions: user.permissions,
